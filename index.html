@@ -1,601 +1,661 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
+<!DOCTYPE html><html lang="de"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Bestellung</title>
+    <title>Lernkarten Programm</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-image: url(' https://wallpapers.com/images/hd/pure-black-background-py9pa0f1mlsscm9s.jpg ');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: white;
-            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
+        }
+
+        .container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .button-container {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-
-        #gallery-btn {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-radius: 5px;
-        }
-
-        #gallery-btn:hover {
-            background-color: #555;
-        }
-
-        #gallery-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
             justify-content: center;
             align-items: center;
+            width: 400px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
             text-align: center;
-            flex-direction: column;  
-        }
-
-        #gallery-image {
-            max-width: 80%;
-            max-height: 80%;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
-        .gallery-nav-btn {
-            background-color: #28a745;
+        .card-content {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
             color: white;
+            border: none;
             padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
+            margin: 5px;
             border-radius: 5px;
-            margin: 5px 0;  
-            display: block;  
-        }
-
-        .gallery-nav-btn:hover {
-            background-color: #555;
-        }
-
-        #return-to-order {
-            background-color: red;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #gallery-btn {
-                padding: 8px 16px;  
-            }
-
-            .gallery-nav-btn {
-                width: 100%;  
-                font-size: 0.9em;  
-            }
-
-            #gallery-image {
-                max-width: 90%;  
-            }
-        }
-
-        #main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            text-align: center;
-        }
-
-        .time-slot-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px;
-            justify-content: center;
-            margin: 20px auto;
-            width: 80%;
-        }
-
-        .time-slot {
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: black;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: background-color 0.3s, border 0.3s;
-            text-align: center; 
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
 
-        .time-slot:hover {
-            background-color: rgba(255, 255, 255, 1);
-            border: 2px solid black;
+        .btn:hover {
+            background-color: #45a049;
         }
 
-        .hidden {
-            display: none;
+        .btn-prev {
+            background-color: #f44336; /* Rot für den "Zurück"-Button */
         }
 
-        #menu, #order-form, #pickup-form, #delivery-form {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            margin-top: 20px;
+        .btn-prev:hover {
+            background-color: #e53935;
         }
 
-        #menu h2 {
-            margin-bottom: 10px;
-        }
-
-        .pizza-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            justify-content: center;
-            margin: 0 auto;
-        }
-
-        .pizza-option {
-            background-color: rgba(255, 255, 255, 0.9);
+        select {
             padding: 10px;
             border-radius: 5px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #e7f4e4; /* Hintergrundfarbe der ComboBox */
         }
 
-        .pizza-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 10px;
-        }
-
-        .pizza-option label {
-            flex: 1;
-            font-size: 1em;
-        }
-
-        .pizza-quantity {
-            width: 50px;
-        }
-
-        #submit-btn {
-            background-color: green;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-            border-radius: 5px;
-        }
-
-        #submit-btn:hover {
-            background-color: darkgreen;
-        }
-
-        .form-input {
-            margin: 10px 0;
-            padding: 8px;
-            width: 100%;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        #gallery-pdf-btn {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-radius: 5px;
-        }
-
-        #gallery-pdf-btn:hover {
-            background-color: #555;
-        }
-
-        #time-select {
-            margin: 20px 0;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 1em;
-            max-width: 300px;
-        }
-
-        #pizza-select {
-            margin: 20px 0;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        #summary-content {
-            text-align: left;
-            margin: 10px 0;
-        }
-
-        #submit-delivery-btn, #submit-pickup-btn {
-            background-color: #28a745; 
-            color: white;
-            padding: 15px 30px; 
-            border: none;
-            cursor: pointer;
-            font-size: 1.5em; 
-            border-radius: 10px; 
-            transition: background-color 0.3s, transform 0.2s; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-        }
-
-        #submit-delivery-btn:hover, #submit-pickup-btn:hover {
-            background-color: #218838; 
-            transform: translateY(-2px); 
-        }
-
-        @media (max-width: 768px) {
-            #menu, #order-form, #pickup-form, #delivery-form {
-                width: 90%;
-            }
-
-            .pizza-image {
-                width: 60px;
-                height: 60px;
-            }
-
-            .pizza-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            #gallery-image {
-                max-width: 90%;
-                max-height: 80%;
-            }
-        }
-
-        /* Notification Styles */
-        #thank-you-notification {
-            display: none;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 2000;
-        }
-
-        #thank-you-notification img {
-            max-width: 100px;
-            margin-top: 10px;
+        #wrongAnswers {
+            display: none; /* Standardmäßig ausblenden */
         }
     </style>
-</head>
+<script defer="" data-domain="crimson-carena-98.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
 <body>
-    <img src="https://i.imgur.com/heygAVK.gif" alt="Logo der Pizzeria Cosa" style="max-width: 400px; margin-bottom: 10px;">
-    <p>Telefonnummer: 017663321527</p>
-    
-    <div class="button-container">
-        <button id="gallery-pdf-btn">Menü</button>
-        <button id="gallery-btn">Galerie</button>
-    </div>
+    <div class="container">
+        <select id="testSelect">
+            <option value="" disabled="" selected="">Wähle einen Test</option>
+            <option value="test1">Test 1</option>
+            <option value="test2">Test 2</option>
+            <option value="test3">Test 3</option>
+            <option value="test4">Test 4</option>
+            <option value="test5">Test 5</option>
+	    <option value="test6">Test 6</option>
+        </select>
 
-    <div id="gallery-container">
-        <img id="gallery-image" src="" alt="Pizza Image">
-        <br>
-        <button class="gallery-nav-btn" id="prev-btn">Zurück</button>
-        <button class="gallery-nav-btn" id="next-btn">Weiter</button>
-        <button class="gallery-nav-btn" id="return-to-order">Zurück zur Bestellung</button>
-    </div>
-
-    <div id="main-content">
-        <h1> Wählen Sie verfügbare Abholzeit.</h1>
-        <select id="time-select" class="form-input"></select>
-
-        <div id="menu" class="hidden">
-            <h2>Wählen Sie Ihre Pizzen</h2>
-            <select id="pizza-select" class="form-input">
-                <option value="">Bitte wählen Sie eine Pizza</option>
-                <option value="pizzamargherita">Pizza Margherita</option>
-                <option value="pizzaSalamiNapoli">Pizza Salami Napoli</option>
-                <option value="pizzaProsciuttoDiParma">Pizza Prosciutto di Parma</option>
-                <option value="pizzaBella">Pizza Bella</option>
-                <option value="pizzaFunghi">Pizza Funghi</option>
-                <option value="pizzaDiavola">Pizza Diavola</option>
-                <option value="pizzaQuattroFormaggi">Pizza Quattro Formaggi</option>
-                <option value="pizzaPesto">Pizza Pesto</option>
-                <option value="pizzaFranken">Pizza Franken</option>
-                <option value="pizzaTonno">Pizza Tonno</option>
-            </select>
-            <div id="pickup-delivery-selection" class="hidden">
-                <button id="pickup-btn" class="gallery-nav-btn">Bestellung abschließen</button>
-                <button id="delivery-btn" class="gallery-nav-btn" style="display:none;">Lieferung</button>
-            </div>
-
-            <div id="order-summary" class="hidden">
-                <h3>Zusammenfassung der Bestellung</h3>
-                <div id="summary-content"></div>
+        <div class="card" id="card">
+            <div id="question" class="card-content">Frage wird hier angezeigt</div>
+            <div id="answer" class="card-content" style="display: none;">Antwort wird hier angezeigt</div>
+            <button id="toggleAnswer" class="btn">Antwort anzeigen</button>
+            <div>
+                <button id="prevCard" class="btn btn-prev">Zurück</button>
+                <button id="nextCard" class="btn">Weiter</button>
             </div>
         </div>
 
-        <div id="delivery-form" class="hidden">
-            <h2>Geben Sie Ihre Lieferdaten ein</h2>
-            <form id="order">
-                <input type="text" id="first-name" class="form-input" placeholder="Vorname" required><br>
-                <input type="text" id="last-name" class="form-input" placeholder="Nachname" required><br>
-                <input type="text" id="address" class="form-input" placeholder="Adresse" required><br>
-                <input type="text" id="phone" class="form-input" placeholder="Telefon" required><br>
-                <button type="button" id="submit-delivery-btn">Bestellung abschließen</button>
-            </form>
+        <div id="wrongAnswers">
+            <h2>Fragen, die du nicht gewusst hast:</h2>
+            <ul id="wrongAnswersList"></ul>
+            <button id="backToTest" class="btn">Zurück zum Test</button>
         </div>
-
-        <div id="pickup-form" class="hidden">
-            <h2>Geben Sie Ihren Nachnamen und Telefonnummer ein</h2>
-            <form id="pickup-order">
-                <input type="text" id="pickup-last-name" class="form-input" placeholder="Nachname" required><br>
-                <input type="text" id="pickup-phone" class="form-input" placeholder="Telefon" required><br>
-                <button type="button" id="submit-pickup-btn">Bestellung abschließen</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="thank-you-notification">
-        <h2>Vielen Dank für Ihre Bestellung!</h2>
-        <img src="https://i.pinimg.com/originals/63/a7/b3/63a7b3a1e338e167ecbf36659a8465d4.gif">
-        <div id="thank-you-summary"></div>
     </div>
 
     <script>
-        const timeSelect = document.getElementById('time-select');
-        const pizzaSelect = document.getElementById('pizza-select');
-        const summaryContent = document.getElementById('summary-content');
-        const orderSummary = document.getElementById('order-summary');
-        const pickupDeliverySelection = document.getElementById('pickup-delivery-selection');
-        const pickupForm = document.getElementById('pickup-form');
-        const deliveryForm = document.getElementById('delivery-form');
-        const thankYouNotification = document.getElementById('thank-you-notification');
-        const thankYouSummary = document.getElementById('thank-you-summary');
+        const tests = {
 
-        let selectedPizzas = {};
-        let reservedTimes = JSON.parse(localStorage.getItem('reservedTimes')) || [];
-        
-        const galleryImages = [
-            "https://italien.blog/wp-content/uploads/2020/11/Pizza-Alla-Napoletana-Napoli-Italien.jpg",
-            "https://www.kochwiki.org/images/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/296px-Eq_it-na_pizza-margherita_sep2005_sml.jpg",
-            "https://cdn.tasteatlas.com/images/dishes/2c8d3208b5d5403fa82077ee2972c9d6.jpg?w=600"
-        ];
-        
-        let currentImageIndex = 0;
+ test1: [
+                { 
+        question: "1. Was versteht man unter beruflicher Weiterbildung?", 
+        answer: "Berufliche Weiterbildung vertieft oder ergänzt die vorhandenen beruflichen Kenntnisse.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "2. Nennen Sie Beispiele für berufliche Weiterbildung.", 
+        answer: "Kurse und Seminare, Fachwirt- und Meisterkurse, Zertifikate.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "3. Nennen Sie die wesentlichen Bestandteile eines Abnahmeprotokolls für ein IT-Projekt.", 
+        answer: "Beteiligte Firmen und Personen, Ort, Datum und Uhrzeit der Abnahme, Erfüllung der technischen Anforderungen.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "4. Wann spricht man von einem Kaufmarkt?", 
+        answer: "Ein Kaufmarkt ist eine Marktsituation, in der die Käuferseite in einer besseren Position gegenüber der Verkäuferseite ist.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "5. Nennen Sie ein Beispiel für einen Kaufmarkt.", 
+        answer: "Angebotsüberhang – entsteht, wenn das Angebot die Nachfrage deutlich übersteigt.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "6. Was bezeichnet man als Kick-Off-Meeting?", 
+        answer: "Das Kick-Off-Meeting findet nach der Projektplanung und vor dem Start statt. Alle Teammitglieder nehmen teil.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "7. Was versteht man unter einer Meilenstein-Planung?", 
+        answer: "Die Meilenstein-Planung ist eine Form der Projektplanung mit bestimmten Zielen.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "8. Nennen Sie die Ziele der Meilenstein-Planung.", 
+        answer: "Terminplanung für das gesamte Projekt, Schaffen von Teilzielen zur Motivation der Mitarbeitenden, Übersicht über Verzögerungen und deren mögliche Auswirkungen.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "9. Nennen Sie die Vorteile des Wasserfallmodells.", 
+        answer: "Vorteile: Anforderungen sind präzise definiert, einfache Planung und Kontrolle aller Projektphasen, leichte Einarbeitung für neue Mitglieder, Entwicklung wird ausführlich dokumentiert.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { 
+        question: "10. Nennen Sie die Nachteile des Wasserfallmodells.", 
+        answer: "Nachteile: Komplexe Softwareprojekte lassen sich schwierig in klar abgegrenzten Phasen unterteilen, unflexibel bei sich ändernden Anforderungen.", 
+        imagePath: "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" 
+    },
+    { question: "11. Was sind die Bestandteile einer Risikoanalyse?", answer: "Identifikation der Risiken , Bewertung der Risiken ,Priorisierung der Risiken,Maßnahmen zur Risikominderung,Überwachung und Anpassung  " },
 
-        const currentTime = new Date();
-        currentTime.setHours(17, 0, 0, 0);
-        const endHour = 21;
+    { question: "12. Was bedeutet der Begriff Stakeholder?", answer: "Stakeholder, deutsch = Teilhaber. Gehört zu den internen und externen Anspruchsgruppen, die gewisse Ziele und Interessen vertreten." },
 
-        for (let i = 0; i < (endHour - 17) * 6; i++) {
-            const time = new Date(currentTime.getTime() + i * 10 * 60000);
-            const timeString = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const option = document.createElement('option');
-            option.value = timeString;
-            option.innerText = timeString;
-            if (reservedTimes.includes(timeString)) {
-                option.disabled = true;
-                option.style.color = 'gray';
-            }
-            timeSelect.appendChild(option);
-        }
+    { question: "13. Welche sind die Hauptziele der Datensicherheit?", answer: "Vertraulichkeit – Daten sind nur für berechtigte Personen zugänglich, Integrität – Daten bleiben unverändert, Verfügbarkeit – Systeme sind erreichbar,    Systemausfälle werden verhindert." },
 
-        timeSelect.addEventListener('change', function () {
-            const selectedTime = this.value;
-            if (selectedTime) {
-                pickupDeliverySelection.classList.remove('hidden');
-                timeSelect.parentElement.classList.add('hidden');
-                document.getElementById('menu').classList.remove('hidden');
+    { question: "14. Wie errechnet sich der Gewinn eines Unternehmens?", answer: "Gewinn = Einnahmen (Verkauf von Waren und Dienstleistungen) - Kosten (Mietkosten, Personal)." },
+
+    { question: "15. Was versteht man unter einer Machbarkeitsanalyse?", answer: "Eine Machbarkeitsanalyse ist ein systematischer Prozess zur Bewertung, ob ein Projekt oder eine Idee realisierbar und sinnvoll ist  ." },
+
+    { question: "16. Was sind die Punkte der Machbarkeitsprüfung?", answer: "Organisatorische Umsetzung, wirtschaftliche Machbarkeit, technische Machbarkeit, zeitliche Umsetzung, Ressourcen und Verfügbarkeit." },
+
+    { question: "17. Was sind die Ziele einer Machbarkeitsanalyse?", answer: "Ist das Projekt technisch machbar, ist es rechtlich umsetzbar, sind genug Ressourcen vorhanden, gibt es genügend Geld." },
+
+    { question: "18. Wie berechnet sich der Deckungsbeitrag bei Unternehmen?", answer: "Deckungsbeitrag = Einnahmen - variable Kosten (steht zur Deckung der Fixkosten zur Verfügung)." },
+
+    { question: "19. Welche Arten von Äußerungen sind in einem Kundengespräch eher blockierend?", answer: "Belehrungen, Erzeugen von Druck, Termindruck auf Kunden ausüben, Konkurrenz diskreditieren." },
+
+    { question: "20. In welchem Softwaresystem werden in der Regel Supportanfragen verarbeitet?", answer: "Ticket-System, User-Helpdesk-System, Support-Ticketing-System." },
+
+    { question: "21. Was sind die Aufgaben eines Ticket-Systems?", answer: "Empfang, Bestätigung, Bearbeitung sowie die Pflege von Anfragen." },
+
+    { question: "22. Nennen Sie drei Vorteile eines User-Helpdesk-Ticketsystems.", answer: "Alle Ticket-Bearbeiter können auf die Service-Historie zurückgreifen, dient der Weiterentwicklung der Produkte oder Services, Kundenerfahrungen      können gesammelt und ausgewertet werden." },
+
+    { question: "23. Was versteht man unter dem Begriff volkswirtschaftliche Sektoren?", answer: "3-Sektoren-Hypothese: Primärsektor – Landproduktion, Fischerei, Bergbau. Sekundärsektor – Industrie und Handwerk. Tertiärsektor – alle Dienstleistungen." },
+
+    { question: "24. Was versteht man unter der Marktform des Monopols?", answer: "Ein Monopol besteht, wenn ein Anbieter auf viele Nachfragen trifft." },
+
+    { question: "25. Wann spricht man von einem Angebotsoligopol?", answer: "Ein Angebotsoligopol besteht, wenn wenige Anbieter auf viele Nachfragen treffen." }
+	],
+
+
+test2: 
+               [
+
+ { question: "26. Was versteht man unter dem Begriff IT-Benchmarking?", answer: "Benchmarking = Betriebsvergleich. Performance (Angebote, Verträge, Dienstleistungen) werden von zwei Unternehmen verglichen." },
+    { question: "27. Welche Kriterien müssen für ein Marktgleichgewicht erfüllt sein?", answer: "Das Marktgleichgewicht herrscht, wenn die angebotene Menge und die nachgefragte Menge nach Gütern übereinstimmen." },
+    { question: "28. Was verbirgt sich hinter dem Begriff Rollout?", answer: "Einführung neuer Hard- und Software, aber auch Markteinführung neuer Produkte." },
+    { question: "29. Welche Dinge müssen bei einem IT-Hardware-Rollout beachtet werden?", answer: "Alte Hardware durch neue ersetzen oder komplett neue Hardware am neuen Standort installieren. Rollout-Manager überwacht alles, Datenmigration bei Austausch alter gegen neue Hardware, Backupkonzept zur Datensicherung festlegen, Terminüberwachung." },
+    { question: "30. Welche Prozesse müssen bei einem Software-Rollout beachtet werden?", answer: "Bei einem Software-Rollout bzw. einer Softwareverteilung muss die Software auf Kompatibilität mit der eingesetzten Hardware geprüft werden." },
+{ question: "31. Welche Schritte sind notwendig nach Abschluss der Leistungserbringung?", answer: "Der Auftraggeber muss mit dem Auftragnehmer eine Teil- oder Vollabnahme vereinbaren. Gemeinsam fertigen sie ein Abnahmeprotokoll (Inhalt: Ort, Datum, Uhrzeit der Abnahme. Bei Mängeln Fristen für deren Beseitigung. Unterschriften, Garantien)." },
+{ question: "32. Was versteht man unter den Begriffen berufliche Fortbildung und berufliche Umschulung?", answer: "Berufliche Fortbildung: Berufliche Handlungsfähigkeit erhalten, anpassen oder höherqualifizieren. Umschulung: Soll zu einer anderen beruflichen Tätigkeit befähigen." },
+{ question: "33. Was versteht man unter dem Begriff Nachhaltigkeit in der IT-Branche?", answer: "Ein bewusstes, verantwortungsvolles Handeln, welches die vorhandenen Ressourcen und die Umwelt schont." },
+{ question: "34. Nennen Sie Maßnahmen zur Umsetzung der Nachhaltigkeit.", answer: "Einsatz von Virtualisierung, Einschränkung des Verbrauchs von Papier, Kunststoff, Druckerfarbe. Nutzung von Standby-Technologien." },
+{ question: "35. Welche Testverfahren gibt es in der Anwendungsentwicklung?", answer: "Black-Box-Test, White-Box-Test, Komponententest, Modultest, Systemtest, Lasttest, Integrationstest." },
+{ question: "36. Nennen Sie die drei Normalformen eines Datenbankschemas und deren Zweck.", answer: "Erste Normalform, Zweite Normalform, Dritte Normalform." },
+{ question: "37. Was versteht man unter Forming, Storming, Norming, Performing?", answer: "Forming: Mitglieder kennenlernen, Rollen sind nicht verteilt, Ziele sind nicht definiert. Storming: Teams bilden sich, Ziele werden klarer, erste Machtkämpfe. Norming: Organisationsphase, erste Erfolge sichtbar, Konflikte werden durch klare Regeln behoben. Performing: Hochleistungsphase, das Team ist jetzt leistungsfähig und arbeitet effizient sowie eigenständig." },
+{ question: "38. Welche Inhalte hat eine Zertifizierung nach ISO 27001?", answer: "Risiken eines Unternehmens identifizieren, analysieren und durch Maßnahmen beheben. Das betrifft neben Hackerangriffen auch andere Störungen, die zu ungeplanten Unterbrechungen oder zum kompletten Stillstand führen. Die ISO 27001 ist nicht auf IT-Prozesse beschränkt (Infrastruktur, Organisation, Personal, Gebäude)." },
+{ question: "39. Was versteht man bei der Aufbauorganisation unter einer Stabsstelle?", answer: "Eine Stabsstelle unterstützt andere Stellen und trägt zur Lösung einer Aufgabe bei, trifft jedoch selbst keine Entscheidungen." },
+{ question: "40. Es gibt fünf Typen von SQL-Kommandos: DDL, DML, DCL, TCL, DQL. Nennen Sie jeweils mindestens einen ausführbaren SQL-Befehl.", answer: "Data Definition Language (DDL) – CREATE, ALTER, DROP. Data Manipulation Language (DML) – INSERT, UPDATE, DELETE. Data Control Language (DCL) – GRANT, REVOKE. Transaction Control Language (TCL) – COMMIT, ROLLBACK, SAVEPOINT. Data Query Language (DQL) – SELECT." },
+{ question: "41. Was bedeutet der Begriff doppelte Buchführung?", answer: "Auch Soll- und Haben-Buchung genannt, ist eine Methode der Buchhaltung, bei der jeder Geschäftsvorfall doppelt gebucht wird. Sie dient dem kaufmännischen Zweck, die Mittelverwendung nachvollziehbar zu machen." },
+{ question: "42. Was ist ein Gantt-Diagramm?", answer: "Hier werden alle Aktivitäten eines Projektes mithilfe einer Zeitachse dargestellt. Die Zeitachse wird horizontal in der ersten Zeile dargestellt. Aktivitäten werden in darunterliegenden Zeilen in der ersten Spalte benannt und zeitlich mit waagerechten Balken dargestellt." },
+{ question: "43. Wie ist eine Stablinienorganisation aufgebaut?", answer: "Ist eine Form der Leitungssysteme und ergänzt das Einliniensystem durch Stabsstellen." },
+{ question: "44. Mit welchen Maßnahmen kann der Umweltschutz im IT-Betrieb verstärkt berücksichtigt werden?", answer: "Nutzung von SSD statt HDD, Virtualisierung von Servern, Kauf von Green-IT, Standby-Regeln für Monitor und Desktops." },
+{ question: "45. Was bedeuten in der Anwendungsentwicklung die Begriffe Black-Box-Test und White-Box-Test?", answer: "Black-Box-Test: Der Tester hat keine Kenntnisse über die innere Funktionsweise. White-Box-Test: Richtet den Blick auf den implementierten Algorithmus und überprüft die Korrektheit des Quellcodes." },
+{ question: "46. Welche Vorgehensmodelle sollten Sie im Projektmanagement, insbesondere in der Anwendungsentwicklung, kennen?", answer: "Klassische Modelle (Wasserfallmodell, V-Modell, Spiralmodell), Agile Modelle (Scrum, Kanban, Extreme Programming)." },
+{ question: "47. Erläutern Sie den Unterschied zwischen einem differentiellen und einem inkrementellen Backup.", answer: "Differentielles Backup: Zuerst Vollbackup, dann alle Dateien, die seit dem letzten Vollbackup verändert oder neu hinzugekommen sind. Inkrementelles Backup: Zuerst Vollbackup, dann nur die Daten, die seit dem letzten inkrementellen Backup geändert wurden oder neu hinzugekommen sind." },
+{ question: "48. Was versteht man in der Anwendungsentwicklung unter einem Mockup?", answer: "Ein Mockup stellt in der Programmierung einer Webseite, einer App oder Anwenderoberfläche einen grafischen Entwurf dar. Es dient dazu, Ideen und Konzepte zu visualisieren." },
+{ question: "49. Was bezeichnet der kritische Pfad beim Netzplan?", answer: "Auch als kritischer Weg bezeichnet, ist der Weg von Anfang bis Ende aller Aktivitäten eines Netzplans, auf dem die Summe aller Pufferzeiten null ist. Die Gesamtprojektdauer wird durch den kritischen Pfad bestimmt (Merke: Beim kritischen Pfad ist der Gesamtpuffer = 0)." },
+{ question: "50. Welche sind die ökonomischen Ziele eines Unternehmens?", answer: "Die Ertragsziele (alles, was mit Umsatz, Gewinn und Kapital zusammenhängt), die Marktziele (definiert der Unternehmer selbst) sowie die Leistungsziele (Qualitätsstandards und Sicherstellung der Arbeitsplätze)." }
+
+],
+
+test3: [
+
+  { "question": "51. Unterscheide die 3 Cloud-Computing Begriffe IaaS, SaaS und PaaS?", "answer": "IaaS: Infrastruktur wie Server und Speicherplatz; der Kunde verwaltet Betriebssystem und Anwendungen selbst. Beispiel: AWS. PaaS: Plattform für die Anwendungsentwicklung; der Anbieter verwaltet die Infrastruktur, der Kunde entwickelt die Anwendung. Beispiel: Google App Engine. SaaS: Software über das Internet; alles wird vom Anbieter verwaltet, der Kunde nutzt nur die Anwendung. Beispiel: Microsoft 365." },
+    { "question": "52. Was ist ein Organigramm?", "answer": "Ein Organigramm ist eine grafische Darstellung der internen Struktur eines Unternehmens." },
+    { "question": "53. Nenne drei Inhalte der internen Struktur im Organigramm?", "answer": "Übersicht der Standorte und Leitungen bei Unternehmensverbänden. Aufteilung der betrieblichen Aufgaben auf Stellen und Abteilungen. Struktur der Leitungsorganisation." },
+    { "question": "54. Was versteht man unter einer Aufbauorganisation?", "answer": "Eine Aufbauorganisation ist die hierarchische Struktur eines Unternehmens oder einer Organisation. Sie gliedert das Unternehmen in Aufgabenbereiche und bestimmt Abteilungen, Leitungsebenen sowie Stabstellen." },
+    { "question": "55. Welche Unterschiedsmerkmale haben Kauf, Miete und Leasing?", "answer": "Kauf: Der Käufer erwirbt ein Wirtschaftsgut und ist zur Zahlung des Kaufpreises verpflichtet. Der Verkäufer überträgt das Eigentum. Miete: Der Vermieter überlässt ein Objekt gegen regelmäßige Zahlungen zur Nutzung. Die Nutzungsdauer wird vertraglich geregelt. Leasing: Eine besondere Form eines Mietvertrags. Der Leasingnehmer least ein Wirtschaftsgut für eine bestimmte Zeit und übernimmt alle Rechte, Pflichten und Risiken des Leasingobjekts. Während der Leasinglaufzeit bleibt das Objekt Eigentum des Leasinggebers." },
+    { "question": "56. Welche Vor- und Nachteile hat der Kauf von IT-Hardware für Unternehmen?", "answer": "Vorteile: Wiederverkauf ist jederzeit möglich, Anschaffung kann steuerlich als Betriebsausgabe geltend gemacht werden, das Wirtschaftsobjekt wird sofort juristisches und wirtschaftliches Eigentum. Nachteile: Nutzungsdauer von IT-Hardware ist oft länger als bei Leasing oder Miete, der Kauf bindet Unternehmensvermögen und kann die Liquidität mindern." },
+    { "question": "57. Welche Vor- und Nachteile hat ein Unternehmen beim Leasing von IT-Hardware?", "answer": "Vorteile: Leasing belastet die Liquidität nicht sofort, Raten sind gut planbar, immer neue Technik, der Leasinggeber kümmert sich um Reparatur oder Ersatz. Nachteile: Das Leasingobjekt bleibt Eigentum des Leasinggebers, Gesamtkosten sind oft höher als beim Kauf, Verträge sind nicht kündbar und haben eine feste Laufzeit von 1-5 Jahren." },
+    { "question": "58. Was ist ein Netzplan?", "answer": "Ein Netzplan ist ein grafisches Werkzeug zur Planung und Steuerung von Projekten. Er zeigt die Aufgaben und deren Abhängigkeiten sowie die zeitlichen Abläufe in einem Netzwerkdiagramm. Die wichtigsten Elemente sind Knoten: Diese repräsentieren Aufgaben oder Meilensteine. Verbindungen: Diese zeigen die Abhängigkeiten zwischen den Aufgaben und den Fluss des Projekts." },
+    { "question": "59. Was versteht man unter dem Begriff Prokura?", "answer": "Prokura ist eine Art von Handelsvollmacht in Deutschland, die im Handelsgesetzbuch (HGB) geregelt ist. Sie ermächtigt eine Person (den Prokuristen), das Unternehmen in verschiedenen rechtlichen und geschäftlichen Angelegenheiten umfassend zu vertreten. Formen der Prokura: Einzel-, Filial-, Gesamtprokura." },
+    { "question": "60. Was versteht man unter dem Top-Down-Ansatz beim Projektstrukturplan?", "answer": "Der Top-Down-Ansatz verfolgt das Ziel, vom Ganzen zum Detail zu gehen. Das Gesamtprojekt wird in mehrere Teilaufgaben zerlegt. Schritte: Benennung des Gesamtprojekts, Zerlegung in Arbeitspakete oder Teilaufgaben, Benennung der Teilaufgaben, weitere Zerlegung bis zur Festlegung der Arbeitspakete." },
+ { "question": "61. Was versteht man unter dem Bottom-Up-Ansatz beim Projektstrukturplan?", 
+      "answer": "Der Bottom-Up-Ansatz verfolgt das Ziel, vom Detail zum Ganzen zu gehen. Die Grundidee ist, detaillierte Teilprobleme zu lösen, um damit größere darüberliegende Probleme zu bewältigen." 
+    },
+    { "question": "62. Was versteht man unter dem 4-Phasen-Modell im Projektmanagement?", 
+      "answer": "Das 4-Phasen-Modell beschreibt die grundlegenden Phasen im Projektmanagement: Projektdefinition, Projektplanung, Projektdurchführung, Projektabschluss." 
+    },
+    { "question": "63. Welche Bestandteile hat in der Regel ein IT-Servicevertrag?", 
+      "answer": "IT-Serviceverträge werden zwischen Kunden und Auftragnehmern geschlossen. Sie enthalten Angaben zum Wartungsstand (Anzahl der IT-Systeme, Standorte), Einsatzzeiten, Höhe der Vergütung, Laufzeit und Kündigung des Servicevertrags, Angaben zur Mängelgewährleistung, Informationen zum Datenschutz und zur Datensicherheit." 
+    },
+    { "question": "64. Welche 5 Arten von SQL-Kommandos werden unterschieden?", 
+      "answer": "DML - Data Manipulation Language, DDL - Data Definition Language, DCL - Data Control Language, DQL - Data Query Language, TCL - Transaction Control Language." 
+    },
+    { "question": "65. Welche allgemeinen Anforderungen werden an ein Datenbanksystem gestellt?", 
+      "answer": "Datenunabhängigkeit, effizienter Speicherzugriff, paralleler Datenzugriff, Datenintegrität, Datensicherheit, Wiederherstellungsverfahren." 
+    },
+    { "question": "66. Was versteht man unter dem Begriff Matrixorganisation?", 
+      "answer": "Die Matrixorganisation ist eine Erweiterung des Mehrliniensystems. Jede Stelle hat zwei Führungskräfte. Vorteile: Teamarbeit, flexible Berücksichtigung von Anforderungen. Nachteile: hoher Kommunikationsaufwand, Machtkämpfe." 
+    },
+    { "question": "67. Was versteht man unter einem Mehrliniensystem?", 
+      "answer": "Das Mehrliniensystem ist eine klassische Aufbauorganisation. In einem Mehrliniensystem erhält eine untergeordnete Stelle von mehreren übergeordneten Stellen Weisungen. Es gilt das Prinzip der kürzesten Wege." 
+    },
+    { "question": "68. Welche Bedeutung haben bei Unterschriften die Abkürzungen i.V., i.A. sowie ppa?", 
+      "answer": "ppa - per procura autoritate: ermächtigt die Prokura, die ins Handelsregister eingetragen werden muss. i.V. - in Vollmacht: eine Vollmacht nach BGB oder HGB. i.A. - im Auftrag: eine Vollmacht nach BGB und HGB, die nicht klar definiert ist." 
+    },
+    { "question": "69. Was bedeutet der Begriff proprietäre Software?", 
+      "answer": "Proprietäre Software ist eine Software, deren Nutzung, Veränderung und Weitergabe aus patentrechtlichen oder lizenzrechtlichen Gründen eingeschränkt oder verboten ist. Beispiele: Microsoft Windows, Adobe Produkte." 
+    },
+    { "question": "70. Nenne die Bestandteile eines Kaufvertrages?", 
+      "answer": "Eigentumsübertragung, Zahlung des Kaufpreises, Rechte des Käufers bei Mängeln, Garantie." 
+    },
+
+    { "question": "71. Welche Vertragsbestandteile sollten in einem Vertrag zur Softwareerstellung geregelt sein?", 
+      "answer": "Lastenheft, Pflichtenheft, Qualitätsstandard, Fertigstellungstermin, Haftung, Vergütung." 
+    },
+    { "question": "72. Was versteht man in der IT unter dem Begriff Service Level Agreement (SLA)?", 
+      "answer": "Ein SLA definiert die Prioritäten bei der Bearbeitung von Servicefällen zwischen Kunden und Anbieter und dient der Qualitätssicherung." 
+    },
+    { "question": "73. Was versteht man unter dem Begriff Eskalationsstufe im 3-stufigen IT-Kundensupport-Modell?", 
+      "answer": "Eskalationsstufen werden anhand des Schweregrads eines Falls und der Eskalationsansprechpartner definiert. Auslöser: Schweregrad eines Supportfalls, Zeit (wenn ein Supportfall nicht in der vereinbarten maximalen Lösungszeit gelöst werden kann). Eskalationsansprechpartner: 1st-Level-Support, 2nd-Level-Support, 3rd-Level-Support." 
+    },
+    { "question": "74. Was versteht man unter einem Convertible?", 
+      "answer": "Ein Convertible, auch Hybrid-PC genannt, ist ein Notebook, das über einen Klapp-, Dreh-, Schiebe- oder Klickmechanismus verfügt und als Notebook oder Tablet genutzt werden kann." 
+    },
+    { "question": "75. Welche Kriterien müssen erfüllt sein, um die Warenannahme zu verweigern?", 
+      "answer": "Die Ware ist nicht richtig adressiert, das Paket weist Transportschäden auf, die Anzahl der gelieferten Packstücke stimmt nicht mit der Bestellung überein. WICHTIG: Bei Ablehnung der Ware aufgrund von Mängeln muss der Mangel sofort beim Lieferanten angezeigt werden." 
+    }
+    
+],
+
+test4: [
+
+{ "question": "76. Was sind Vorteile einer Zertifizierung nach ISO 27001?", 
+      "answer": "Wirksamer Schutz von Informationen, Daten und Geschäftsprozessen des Unternehmens, Vertrauensnachweis gegenüber Kunden und Investoren, kontinuierliche Verbesserung der IT- und Geschäftsprozesse." 
+    },
+    { "question": "77. Dein Ausbildungsbetrieb ist ISO 9001 zertifiziert. Was bedeutet diese Norm?", 
+      "answer": "Die ISO 9001 Norm legt die Anforderungen für Qualitätsmanagementsysteme fest. Ziel ist die Qualitätssicherung durch stetige Optimierung der Prozesse. Sie ist weltweit anerkannt. Grundprinzipien: Kundenorientierung, Prozessorientierung, stetige Verbesserung, Risikomanagement." 
+    },
+    { "question": "78. Was bedeutet ITIL und was beinhaltet es?", 
+      "answer": "Die IT Infrastructure Library (ITIL) ist eine Sammlung von Best Practices für das IT-Service-Management. ITIL umfasst Prozesse, die der Steigerung der Effizienz und Effektivität von IT-Dienstleistungen dienen, z.B. Service Desk, Incident Management, Change Management." 
+    },
+    { "question": "79. Nenne zwei Vorteile eines online geführten Kassenbuchs gegenüber einem papierbasierten Kassenbuch?", 
+      "answer": "Vorteile eines elektronisch geführten Kassenbuchs: Möglichkeit der Datenanalyse, Auswertung und Integration mit anderen Systemen, Fehlervermeidung, Zeitersparnis bei der Führung." 
+    },
+    { "question": "80. Welche drei Phasen gibt es im IT-Sicherheitsmanagement und was beinhalten diese?", 
+      "answer": "Planung: Definition der Sicherheitsziele, Risikobewertung, Erstellung von Sicherheitsrichtlinien. Implementierung: Umsetzung der Sicherheitsmaßnahmen, Schulung der Mitarbeiter, Einführung von Sicherheitssoftware und -hardware. Kontrolle: Überwachung der Sicherheitsmaßnahmen, regelmäßige Sicherheitsüberprüfungen, Anpassung der Sicherheitsrichtlinien bei Bedarf." 
+    },
+
+{ "question": "81. Was bedeutet Gütesiegel 'Geprüfte Sicherheit'?", 
+      "answer": "Wird seit 1977 von der Deutschen Gesetzlichen Unfallversicherung (DGUV) für Produkte ausgestellt, die die Anforderungen des Produktsicherheitsgesetzes (ProdSG) erfüllen." 
+    },
+    { "question": "82. Was steckt hinter dem Zeichen 'Blauer Engel'?", 
+      "answer": "Der Blaue Engel ist das Umweltzeichen der Bundesregierung. Der Blaue Engel ist die Orientierung beim nachhaltigen Einkauf." 
+    },
+    { "question": "83. Was sollte beim Recyclen von IT-Produkten beachtet werden?", 
+      "answer": "Elektronische Geräte gehören nicht in den Hausmüll und müssen fachgerecht sowie umweltgerecht entsorgt werden." 
+    },
+    { "question": "84. Was sollte man bei der Verschrottung von Datenträgern unbedingt beachten?", 
+      "answer": "Alle Daten sollen vor der Verschrottung eines Datenträgers sicher gelöscht werden und dann durch zertifizierte Entsorgungsunternehmen entsorgt werden." 
+    },
+    { "question": "85. Was bedeutet der Begriff MFA (Multi-Factor-Authentication) und wo kommt sie zum Einsatz?", 
+      "answer": "MFA ist eine erweiterte Form der Zugangsberechtigung, die durch mehrere unabhängige Faktoren überprüft wird. Nach Eingabe eines starken Passworts wird zusätzlich eine Telefonnummer oder ein weiteres Authentifizierungsmerkmal abgefragt. Einsatzbereich: Online-Banking, Online-Ausweisfunktion des Personalausweises, Kreditkartenzahlung." 
+    },
+    { "question": "87. Beschreibe den Begriff Datensicherheit und nenne deren Schutzziele.", 
+      "answer": "Datensicherheit, oft auch Informationssicherheit (IS) genannt, beinhaltet alle technischen und nicht-technischen Maßnahmen zur Sicherstellung der Vertraulichkeit, Verfügbarkeit und Integrität. Es geht um den Schutz vor Gefahren, Bedrohungen und die Vermeidung von Schäden sowie die Minimierung von Risiken im IT-Bereich." 
+    },
+    { "question": "88. Worin unterscheiden sich Datenschutz und Datensicherheit?", 
+      "answer": "Datensicherheit bzw. IS verfolgt die drei Schutzziele: Vertraulichkeit, Verfügbarkeit und Integrität. Datenschutz verfolgt das Ziel, personenbezogene Daten zu schützen sowie die Informationspflichten und Rechte der Personen, von denen Daten erhoben werden, zu gewährleisten." 
+    },
+    { "question": "89. Nenne die Vorteile einer ISO 27001 Zertifizierung für ein Unternehmen.", 
+      "answer": "IT-Risiken minimieren, mögliche Schäden und Folgekosten abschätzen, Wettbewerbsvorteil durch anerkannten internationalen Standard, Steigerung des Vertrauens gegenüber Kunden, Partnern und der Öffentlichkeit." 
+    },
+    { "question": "90. Was sind die Ziele bei der Datenminimierung?", 
+      "answer": "Grundsatz: So viele Daten wie nötig, so wenige Daten wie möglich. Es ist eine Regel, die besagt, dass bei der Datenverarbeitung nur so viele Daten gesammelt werden, wie unbedingt notwendig sind für die Verarbeitungszwecke." 
+    },
+ { "question": "91. Welche Rechte hat eine Person betreffend ihrer personenbezogenen Daten?", 
+      "answer": "Recht auf Auskunft, Recht auf Löschung, Recht auf Berichtigung, Recht auf Einschränkung der Verarbeitung." 
+    },
+    { "question": "92. Was ist eine PKI (Public Key Infrastructure)?", 
+      "answer": "Kryptologisches System, welches innerhalb einer Infrastruktur digitale Zertifikate ausstellen, verteilen und prüfen kann. Asymmetrische Kryptosysteme kommen zum Einsatz, um den Datenverkehr zu sichern (verschlüsselt und signiert die Datenübertragung)." 
+    },
+    { "question": "93. Was versteht man unter einem digitalen Zertifikat?", 
+      "answer": "Ein digitaler Datensatz, der mit Hilfe von kryptografischen Schlüsselpaaren die Authentizität von Webseiten, Einzelpersonen oder Organisationen überprüfen kann. Meistens ein Public Key Zertifikat. Ein Zertifikat beinhaltet den öffentlichen und privaten Schlüssel sowie Informationen über die ausstellende Zertifizierungsstelle." 
+    },
+    { "question": "94. Was ist eine SPI (Stateful Packet Inspection) Firewall?", 
+      "answer": "Im Gegensatz zur klassischen Firewall (paketorientiert) nutzt die SPI eine zustandsorientierte Paketüberprüfung, bei der jedes Datenpaket auf der OSI-Schicht 3 einer bestimmten aktiven Sitzung zugeordnet wird und der Verbindungsstatus in dynamischen Zustandstabellen zwischengespeichert wird." 
+    },
+    { "question": "95. Was versteht man unter dem Begriff Endpoint-Security?", 
+      "answer": "Als Endpoint Security Management werden alle Maßnahmen und Richtlinien bezeichnet, die Endgeräte, die auf das Netzwerk zugreifen, von schädlichen Angriffen schützen." 
+    },
+    { "question": "96. Welche Anwendungen oder Verfahren verwenden kryptografische Hashfunktionen?", 
+      "answer": "Integritätsprüfung, Speichern von Passwörtern, Erzeugung von Prüfsummen und Sitzungsschlüsseln." 
+    },
+    { "question": "97. Was ist ein Backup-Plan nach dem Großvater-Vater-Sohn Prinzip?", 
+      "answer": "Ein Rotationsschema zur Datensicherung auf Speichermedien. Im Rahmen einer 5-Tage-Woche kommen dabei 20 Speichermedien zum Einsatz. 4x Sohn - tägliche Datensicherung (inkrementell), 4x Vater - wöchentliche Datensicherung (Vollbackup), 12x Großvater - monatlich (Vollbackup)." 
+    },
+    { "question": "98. Unterscheide die Begriffe Malware, Ransomware, Trojaner.", 
+      "answer": "Malware - Schadprogramme, Oberbegriff für Begriffe wie Trojaner, Viren, Würmer, Ransomware, Spyware. Ransomware - Erpressersoftware, die Daten auf einem PC verschlüsselt und eine Zahlung für die Entschlüsselung fordert. Trojaner - Harmlos wirkendes PC-Programm, das nach der Installation schädliche Aktivitäten ausführt oder Daten klaut." 
+    },
+    { "question": "99. Welchen Zweck dient das IT-Sicherheitsmanagement?", 
+      "answer": "Beschreibt den Prozess innerhalb einer Unternehmung oder Organisation zur Gewährleistung der IT-Sicherheit und des Datenschutzes. Ziel ist es, Gefahren oder Bedrohungen zu verhindern oder abzuwerten." 
+    },
+    { "question": "100. Welche Kriterien muss eine sichere Passwortrichtlinie erfüllen?", 
+      "answer": "Zwischen 10-15 Zeichen, Klein- und Großbuchstaben, Sonderzeichen, keine Daten wie Geburtstage oder Namen der Kinder, alle 30-90 Tage Passwort ändern." 
+    }
+
+],
+
+test5: [
+
+  {
+    "question": "101. Erläutere, bezogen auf den Bereich der Entwicklung den Begriff Security by Design?",
+    "answer": "Der Begriff Security by Design bedeutet, dass die allgemeinen Sicherheitsanforderungen an Soft- und Hardware bereits während der Entwicklungsphase eines Produktes berücksichtigt werden sollen, um spätere Sicherheitslücken auszuschließen. Die nachträgliche Beseitigung von Sicherheitslücken würde die Kosten in die Höhe treiben."
+  },
+  {
+    "question": "102. Benenne je 2 Vor- und Nachteile des WPA2-Personal und WPA2-Enterprise?",
+    "answer": "WPA2-Personal: leicht zu implementieren, sehr verbreitet. Nachteile: unsicher in großen Unternehmen, da das Passwort häufig bekannt ist; Passwortwechsel arbeitsintensiv. WPA2-Enterprise: sicherer in großen Unternehmen; Passwort- und Gerätewechsel einfach. Nachteile: hoher technischer Aufwand, erfordert RADIUS-Server."
+  },
+  {
+    "question": "103. Welche Funktionen übernehmen dedicated und global Hotspare bei Datenspeichersystemen?",
+    "answer": "Datenspeichersysteme können mit der Hotspare-Funktion defekte Laufwerke vollautomatisch durch Hotspare-Laufwerke oder Standby-Laufwerke ersetzen."
+  },
+  {
+    "question": "104. Welche Sicherheitsmaßnahmen sind beim Einsatz eines Email-Systems zu beachten?",
+    "answer": "E-Mails sollten zentral verschlüsselt und digital signiert werden. Einsatz von TLS/SSL-Zertifikaten wird empfohlen."
+  },
+  {
+    "question": "105. Welche Bedingungen muss ein ergonomischer PC-Arbeitsplatz erfüllen?",
+    "answer": "Mindestabstand von 50 cm, frei von Reflexionen und Blendungen, ausreichender Bewegungsraum für die Beine, natürliche Körperhaltung möglich, Bildschirm muss dreh- und neigbar sein."
+  },
+  {
+    "question": "106. Welche Aussagen trifft die Arbeitsstättenverordnung (ArbStättV) in Bezug auf Bildschirm und Tastatur?",
+    "answer": "Die Zeichen auf dem Bildschirm müssen scharf, deutlich und ausreichend groß sein. Das Bild muss stabil und ohne Verzerrungen dargestellt werden. Die Tastatur muss eine Auflagemöglichkeit bieten und vom Bildschirm getrennt sein, um eine ergonomische Arbeitshaltung zu ermöglichen."
+  },
+  {
+    "question": "107. Was ist der PDCA-Zyklus und aus welchen Schritten besteht er?",
+    "answer": "Prozess zur kontinuierlichen Verbesserung und Problemlösung: Plan (Planen), Do (Durchführen), Check (Überprüfen), Act (Handeln). Der Zyklus wird wiederholt, um Optimierungen zu erzielen."
+  },
+  {
+    "question": "108. Beschreibe die fünf Punkte der SMART-Methode?",
+    "answer": "Spezifisch, Messbar, Attraktiv, Realistisch, Terminiert."
+  },
+  {
+    "question": "109. Welche Maßnahmen im Unternehmen haben einen positiven Effekt auf die Arbeitsqualität?",
+    "answer": "Einsatz flexibler Arbeitszeitmodelle, Home-Office, Gewinnbeteiligung, Weiterbildungsmöglichkeiten."
+  },
+  {
+    "question": "110. Was versteht man unter Standardsoftware?",
+    "answer": "Standardsoftware ist allgemein verfügbare Software, die auf dem freien Markt angeboten wird. Sie wird in der Regel vom Anwender selbst installiert und angepasst. Sie kann als On-Premise oder Software-as-a-Service (SaaS) bereitgestellt werden."
+  },
+  {
+    "question": "111. Worauf sollte man bei der Beschaffung von IT-Hardware achten?",
+    "answer": "Umweltfreundlichkeit, Langlebigkeit (mindestens 5 Jahre Support), Skalierbarkeit, kostengünstiger Support, geringer Stromverbrauch und Abwärme, leichte Austauschbarkeit."
+  },
+  {
+    "question": "112. Welche Themen sind für einen TÜV-geprüften IT-Sicherheitsbeauftragten von Bedeutung?",
+    "answer": "ISMS nach ISO 27001, Informationssicherheit, aktuelle Themen und Konzepte der Informationssicherheit."
+  },
+  {
+    "question": "113. Beschreibe die Schutzbedarfskategorien (normal, hoch, sehr hoch).",
+    "answer": "Normal: geringfügige Konsequenzen mit minimalen Auswirkungen; Schaden unter 50.000 Euro. Hoch: schwerwiegende Konsequenzen mit massiven Auswirkungen; Schaden zwischen 50.000 und 500.000 Euro. Sehr hoch: existenzbedrohende Konsequenzen; Schaden über 500.000 Euro."
+  },
+  {
+    "question": "114. Welche Maßnahmen erhöhen die Sicherheit der IT-Systeme?",
+    "answer": "Datenverschlüsselung, mehrstufiges Firewall-Konzept, Multi-Faktor-Authentifizierung, Schulungen der Mitarbeiter, Rechtekonzepte für Administratoren und Nutzer."
+  },
+  {
+    "question": "115. Unterschied zwischen ADSL, VDSL und SDSL?",
+    "answer": "ADSL: asymmetrische Geschwindigkeiten, Download höher als Upload. VDSL: wie ADSL, aber mit höheren Geschwindigkeiten. SDSL: symmetrische Geschwindigkeiten, geeignet für Echtzeitübertragungen (z. B. VoIP)."
+  },
+  {
+    "question": "116. Erläutere den Unterschied zwischen einem Compiler und einem Interpreter?",
+    "answer": "Compiler: Wandelt den Quellcode in Maschinensprache um, bevor die Anwendung ausgeführt wird. Interpreter: Führt Quellcode direkt zur Laufzeit aus, Anweisungen werden nacheinander verarbeitet."
+  },
+  {
+    "question": "117. Welchen Nutzen hat ein Framework in der Anwendungsentwicklung?",
+    "answer": "Ein Framework stellt Architektur, Vorlagen, Bibliotheken und APIs bereit, die die Entwicklung vereinfachen und die Integration verschiedener Komponenten erleichtern."
+  },
+  {
+    "question": "118. Welche primitiven Datentypen gibt es in Java?",
+    "answer": "Ganzzahlen: int, byte, short, long. Fließkommazahlen: float, double."
+  },
+  {
+    "question": "119. Was versteht man in der objektorientierten Programmierung unter Vererbung?",
+    "answer": "Vererbung bedeutet, dass eine neue Klasse die Eigenschaften und Methoden einer bestehenden Klasse übernimmt. Die bestehende Klasse wird Basisklasse oder Elternklasse genannt."
+  },
+  {
+    "question": "120. Nenne einige Vor- und Nachteile von Tablets?",
+    "answer": "Vorteile: lange Akkulaufzeit, platzsparend, geringes Gewicht, Touchbedienung. Nachteile: geringere Speicherkapazität, wenige Anschlussmöglichkeiten, nicht aufrüstbar."
+  },
+  {
+    "question": "121. Welche Vor- und Nachteile hat ein Notebook?",
+    "answer": "Vorteile: flexibel durch Akku, WLAN, geringer Stromverbrauch, platzsparend. Nachteile: geringere Speicherkapazität, komplizierte Aufrüstung, teuer."
+  },
+  {
+    "question": "122. Welche Aufgaben und Ziele verfolgen die betrieblichen Grundfunktionen?",
+    "answer": "Beschaffung: Einkauf von Rohstoffen. Produktion: Herstellung von Gütern/Dienstleistungen. Vertrieb: Verkauf am Markt. Finanzierung: Steuerung zwischen Kapitalbeschaffung und Kapitalverwendung."
+  },
+  {
+    "question": "123. Welche Merkmale besitzt eine Europäische Gesellschaft (SE)?",
+    "answer": "Mindestkapital 120.000 Euro, Kapitalgesellschaft mit eigener Rechtspersönlichkeit, Haftung der Aktionäre bis zur Höhe des Kapitals."
+  },
+  {
+    "question": "124. Welche Kriterien müssen für die Marktform des Polypols erfüllt sein?",
+    "answer": "Viele Anbieter und Nachfrager stehen in Konkurrenz zueinander."
+  },
+  {
+    "question": "125. Welche Unternehmensformen sind in Deutschland Personengesellschaften?",
+    "answer": "GbR, oHG, KG, GmbH & Co. KG."
+  }
+],
+
+
+test6:  [
+
+{
+  "question": "126. Welche Bedingungen und Haftungsregeln gelten bei der Offenen Handelsgesellschaft (OHG)?",
+  "answer": "Eine OHG kann gegründet werden, wenn sich mindestens zwei oder mehr Personen zum Zweck eines vollkaufmännischen Handelsgewerbes im Sinne von §1 Abs. 1 HGB zusammenschließen. Es gilt, dass alle Gesellschafter persönlich, unbegrenzt und unbeschränkt für alle Verbindlichkeiten der Gesellschaft haften."
+},
+{
+  "question": "127. Ein Betriebsergebnis errechnet sich aus den Umsatzerlösen minus den Umsatzkosten. Welche Sachverhalte können das Betriebsergebnis positiv beeinflussen?",
+  "answer": "Wareneinkauf optimieren (Rabatte aushandeln), Herstellungskosten senken, Reduzierung der Werbekosten, Fixkosten mindern, Personalkosten reduzieren."
+},
+{
+  "question": "128. Unternehmen richten ihre Produkte und Dienstleistungen mithilfe von Marketingmaßnahmen nach den Kundenwünschen aus. Welchem Zweck dienen in diesem Zusammenhang Kundenbefragungen?",
+  "answer": "Durch Kundenbefragungen können zentrale Punkte wie Kundenzufriedenheit, Trends, das Image des Unternehmens, die Marktposition sowie der Erfolg von Werbemaßnahmen beantwortet werden."
+},
+{
+  "question": "129. In der Kundenkommunikation, speziell während der Fehleranalyse im Telefonsupport, sind Fragen von besonderer Bedeutung. Unterscheide bitte geschlossene und offene Fragen?",
+  "answer": "Geschlossene Fragen: Ja- oder Nein-Fragen, z.B., „Haben Sie den PC schon einmal neu gestartet?“ Offene Fragen: Wer, Wie, Was, Wieso, Wo, Wann, z.B., „Welche Fehlermeldung wurde Ihnen bei Programmabbruch angezeigt?“"
+},
+{
+  "question": "130. Was versteht man unter dem Begriff Cross-Selling?",
+  "answer": "Als Cross-Selling wird im Bereich des Marketings das Bemühen eines Händlers bezeichnet, zusätzlich zu einem nachgefragten oder angebotenen Artikel weitere passende Produkte oder Services anzubieten, immer mit dem Ziel, einen höheren Umsatz zu erzielen und die Kundenzufriedenheit zu erhöhen."
+},
+{
+  "question": "131. Welche Regeln sollte man im telefonischen Kundensupport beachten?",
+  "answer": "Folgende Regeln sind allgemeiner Natur: Vermeiden Sie Worte oder Ausdrücke, die den Kunden reizen könnten. Hören Sie dem Gesprächspartner aktiv zu. Lassen Sie den Kunden immer ausreden und unterbrechen Sie ihn nicht. Widersprechen Sie nie bei einem Einwand oder einer Beschwerde."
+},
+{
+  "question": "132. Beschreibe den Begriff Pre-Sales-Angebot und nenne zwei Beispiele?",
+  "answer": "Unter dem Begriff sind alle Dienstleistungen zu verstehen, die dem potenziellen Kunden beim Vertragsabschluss angeboten werden. Dieser Service ist in der Regel unentgeltlich und dient dem Kunden. Beispiele: Kostenlose Probefahrt beim Fahrzeugkauf, kostenlose Kataloge oder Probeprodukte."
+},
+{
+  "question": "133. Welche Vor- und Nachteile bieten Webinare?",
+  "answer": "Vorteile: Es entstehen keine Reisekosten, Kurse sind kurzfristig planbar, eine Vielzahl an Teilnehmern ist erreichbar, Webinare können aufgezeichnet werden für Wiederholungen. Nachteile: Braucht technische Ausstattung und Internetverbindung, die Stimmung der Teilnehmer ist nur schwer zu erfassen, keine gemeinsamen Aktivitäten der Teilnehmer, Umsetzung von Praxisübungen nicht immer möglich."
+},
+{
+  "question": "134. Was ist eine Nutzwertanalyse?",
+  "answer": "Eine Nutzwertanalyse stellt allgemein eine Entscheidungshilfe dar, wenn es um komplexe Handlungsalternativen geht. Die Nutzwertanalyse dient zur Entscheidungsfindung bei komplexen Problemen."
+},
+{
+  "question": "135. Mit welchen Maßnahmen kann man die Kundenzufriedenheit erhöhen?",
+  "answer": "Gewährung von Rabatten (Aktionen), Teilnahme an Sonderaktionen, Einladung zu Hausmessen oder Festen, Social Media, Qualitätsversprechen unbedingt einhalten."
+},
+{
+  "question": "136. Welchem Zweck dient ein Angebotsvergleich?",
+  "answer": "Der Angebotsvergleich bildet die wesentliche Grundlage für eine zukünftige Kaufentscheidung. Man vergleicht normalerweise mindestens zwei oder mehr Angebote. Folgende Kriterien werden verglichen: niedrigerer Preis, Kundenservice, Lieferservice, Lieferzeit, Finanzierungsangebote."
+},
+{
+  "question": "137. Worin besteht in der Virtualisierung von Hostsystemen der Unterschied zwischen dem Hypervisor Typ 1 und Typ 2?",
+  "answer": "Der Typ 1, auch native oder Bare-Metal-Hypervisor genannt, setzt direkt auf der Hardware des Hostsystems auf. Daher ist keine vorherige Betriebssysteminstallation notwendig. Hypervisor Typ 2, auch hosted Hypervisor genannt, benötigt ein laufendes vollwertiges Betriebssystem, um auf diesem Hostsystem auf die Gerätetreiber des Betriebssystems bzw. auf die Hardware des Hostsystems zuzugreifen."
+},
+{
+  "question": "138. Welche Funktionen bietet eine Dockingstation für Notebooks?",
+  "answer": "Eine Dockingstation wird verwendet, wenn mobile Geräte mit einem festen Netz verbunden werden sollen. Durch eine Dockingstation bekommen Notebooks mehr Anschlussmöglichkeiten. Die modernen Dockingstationen haben meistens 2 x HDMI, 2 x DVI oder 2 x DisplayPort."
+},
+{
+  "question": "139. Welche Video-Schnittstellen sind für 4K- und 8K-Auflösung geeignet?",
+  "answer": "Nicht geeignet sind HDMI 1.4 (max. Auflösung: Full HD). Geeignet sind: HDMI 2.0 (max. Auflösung: 4K), HDMI 2.1 (max. Auflösung: 8K), DisplayPort 1.3 (max. Auflösung: 8K), DisplayPort 1.4 (max. Auflösung: 8K)."
+},
+{
+  "question": "140. Welche technischen Merkmale hat ein Notebook?",
+  "answer": "Teilweise Anschluss für Dockingstation, teilweise Mini-PCI-Express-Slot, teilweise integriertes Bluetooth, WLAN und WWAN, eigenes Display, Akku, teilweise Videokamera, interne Netzwerkkarte, externe Schnittstellen wie USB, HDMI, DP, VGA, Firewire, externes Netzteil."
+},
+{
+  "question": "141. Welchen Vorteil bringt der Einsatz von Dual-Channel-Technik bei Speichermodulen?",
+  "answer": "Mithilfe der Dual-Channel-Technik kann der Speichercontroller des Prozessors die Daten auf zwei Arbeitsspeichermodule gleichzeitig aufteilen und somit parallel schreiben und lesen. Dadurch verdoppelt sich die Datenrate."
+},
+{
+  "question": "142. Was verbirgt sich hinter der Bezeichnung UHD 4K?",
+  "answer": "Ultra High Definition 4K bezeichnet ein digitales Videoformat der International Telecommunication Union für UHDTV oder UHDV."
+},
+{
+  "question": "143. Was versteht man unter einem Thin Client?",
+  "answer": "Allgemein kann man einen Thin Client als einen Computer bezeichnen, welcher über ein Netzwerk Ressourcen nutzt, die ihm ein Server bereitstellt. Thin Clients sind umwelt- und ressourcenschonend und haben eine geringe Leistungsaufnahme."
+},
+{
+  "question": "144. Was versteht man in der Anwendungsentwicklung unter dem Begriff IDE?",
+  "answer": "Eine IDE (integrierte Entwicklungsumgebung) ist eine Sammlung der wichtigsten Werkzeuge zur Softwareentwicklung unter einer einheitlichen Oberfläche. Sie soll helfen, die Arbeit zu erleichtern. Zu den wichtigsten Werkzeugen zählen: Compiler, Debugger, Interpreter, Linker."
+},
+{
+  "question": "145. Ordne die folgenden WWAN-Technologien 5G, UMTS, LTE, HSDPA, Edge nach ihrer Geschwindigkeit?",
+  "answer": "Edge, UMTS, HSDPA, LTE, 5G."
+},
+{
+  "question": "146. Was versteht man unter Individualsoftware?",
+  "answer": "Als Individualsoftware bezeichnet man Software, welche bestimmte Hardware oder individuelle Geschäftsanforderungen erfüllen muss, also für einen bestimmten Anwender oder einen spezialisierten Verwendungszweck angefertigt wurde."
+},
+{
+  "question": "147. Welches sind die allgemeinen Kriterien einer Schutzbedarfsanalyse von IT-Systemen?",
+  "answer": "Wie hoch ist das Risiko für einen Angriff? Welche Objekte müssen besonders abgesichert werden? Wie groß sind die möglichen Schäden? Welche Maßnahmen sind geeignet gegen interne und externe Bedrohungen? Welchen konkreten Bedrohungsszenarien sind wir ausgesetzt?"
+},
+{
+  "question": "148. Nenne Vor- und Nachteile eines direkten Vertriebs?",
+  "answer": "Vorteile: Die Gewinnspanne ist höher (die Provision entfällt), Endverbraucher haben kurze Kommunikations- und Vertriebswege, engere Kundenbindung durch persönliche Kundenkommunikation. Nachteile: Eigenes Vertriebsnetz bindet viel Kapital, personalintensiv, hohe Fixkosten, Massendistribution nur bedingt umsetzbar."
+},
+{
+  "question": "149. Wozu dient eine ABC-Analyse?",
+  "answer": "Ein betriebswirtschaftliches Verfahren. Hier werden bestimmte Prozesse oder Objekte in Klassen A, B, C eingestuft. Beispiel: Klasse A – Kunden, die den meisten Umsatz bringen in das Unternehmen; B – durchschnittliche Kunden; C – Kunden, die wenig Umsatz bringen."
+},
+{
+  "question": "150. Mit welchen Maßnahmen kann man im Unternehmen die Produktqualität entscheidend verbessern?",
+  "answer": "Einführung einer permanenten Qualitätssicherung, wiederkehrende Kundenbefragung zur Qualität der Produkte, Produktionsprozesse kontinuierlich verbessern, qualitative Materialien bei der Produktion benutzen, Mitarbeiterschulungen zum Thema Produktqualität."
+}
+
+]
+ };
+
+        let currentTest = [];
+        let currentCardIndex = 0;
+        let wrongAnswers = [];
+
+        document.getElementById('testSelect').addEventListener('change', function() {
+            const selectedTest = this.value;
+            currentTest = tests[selectedTest];
+            currentCardIndex = 0;
+            wrongAnswers = [];
+            document.getElementById('wrongAnswers').style.display = 'none';
+            updateCard();
+        });
+
+        document.getElementById('toggleAnswer').addEventListener('click', function() {
+            const answerDiv = document.getElementById('answer');
+            const questionDiv = document.getElementById('question');
+            // Wenn die Antwort angezeigt wird, wird die Frage als "nicht gewusst" markiert
+            if (answerDiv.style.display === 'none') {
+                answerDiv.style.display = 'block';
+                answerDiv.textContent = currentTest[currentCardIndex].answer; // Antwort anzeigen
+                questionDiv.style.display = 'none';
+                this.textContent = 'Frage anzeigen';
+            } else {
+                answerDiv.style.display = 'none';
+                questionDiv.style.display = 'block';
+                this.textContent = 'Antwort anzeigen';
+                // Frage als "gewusst" markieren, wenn die Antwort nicht angezeigt wird
+                wrongAnswers.push(currentTest[currentCardIndex]);
             }
         });
 
-        pizzaSelect.addEventListener('change', function () {
-            const selectedPizza = this.value;
-            if (selectedPizza) {
-                const pizzaName = pizzaSelect.options[pizzaSelect.selectedIndex].text;
-                if (selectedPizzas[pizzaName]) {
-                    selectedPizzas[pizzaName]++;
-                } else {
-                    selectedPizzas[pizzaName] = 1;
-                }
-                updateSummary();
-                pizzaSelect.value = '';
+        document.getElementById('nextCard').addEventListener('click', function() {
+            const answerDiv = document.getElementById('answer');
+            if (answerDiv.style.display === 'block') {
+                // Frage als "nicht gewusst" markieren, wenn die Antwort angezeigt wird
+                wrongAnswers.push(currentTest[currentCardIndex]);
             }
+            currentCardIndex++;
+            updateCard();
         });
 
-        function updateSummary() {
-            summaryContent.innerHTML = '';
-            for (const [pizza, quantity] of Object.entries(selectedPizzas)) {
-                summaryContent.innerHTML += `<p>${pizza} x ${quantity} <button onclick="removePizza('${pizza}')">Löschen</button></p>`;
+        document.getElementById('prevCard').addEventListener('click', function() {
+            currentCardIndex--;
+            updateCard();
+        });
+
+        document.getElementById('backToTest').addEventListener('click', function() {
+            document.getElementById('wrongAnswers').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
+        });
+
+        function updateCard() {
+            if (currentCardIndex < currentTest.length && currentCardIndex >= 0) {
+                document.getElementById('question').textContent = currentTest[currentCardIndex].question;
+                document.getElementById('answer').style.display = 'none';
+                document.getElementById('toggleAnswer').textContent = 'Antwort anzeigen';
+                document.getElementById('card').style.display = 'block';
+                document.getElementById('wrongAnswers').style.display = 'none';
+            } else {
+                showWrongAnswers();
             }
-            orderSummary.classList.remove('hidden');
         }
 
-        function removePizza(pizzaName) {
-            if (selectedPizzas[pizzaName]) {
-                selectedPizzas[pizzaName]--;
-                if (selectedPizzas[pizzaName] === 0) {
-                    delete selectedPizzas[pizzaName];
-                }
-            }
-            updateSummary();
-        }
-
-        function sendOrderData(orderData) {
-            console.log("Sending order data:", orderData);
-            fetch('https://script.google.com/macros/s/AKfycbwx6KP3fxWwpdgm4h1KYm2KuVs70pJ4Uj73-ZwFmpQ6qoabJPEyuO0m531MLoGHHWW0EA/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData),
-            })
-            .then(() => {
-                showThankYouNotification(orderData); // Show thank you notification immediately
-                reserveTime(orderData.time);
-                resetOrder();
-            })
-            .catch((error) => {
-                console.error('Fehler beim Senden der Bestellung:', error);
+        function showWrongAnswers() {
+            document.getElementById('card').style.display = 'none';
+            document.getElementById('wrongAnswers').style.display = 'block';
+            const wrongAnswersList = document.getElementById('wrongAnswersList');
+            wrongAnswersList.innerHTML = '';
+            wrongAnswers.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item.question;
+                wrongAnswersList.appendChild(listItem);
             });
         }
-
-        function showThankYouNotification(orderData) {
-            thankYouNotification.style.display = 'block';
-            thankYouSummary.innerHTML = `<h3>Zusammenfassung Ihrer Bestellung:</h3><p>Art: ${orderData.type}</p><p>Zeit: ${orderData.time}</p><p>Pizzen: ${orderData.pizzas}</p>`;
-            setTimeout(() => {
-                thankYouNotification.style.display = 'none';
-            }, 14000); // Hide after 5 seconds
-        }
-
-        function reserveTime(time) {
-            reservedTimes.push(time);
-            localStorage.setItem('reservedTimes', JSON.stringify(reservedTimes));
-            const options = timeSelect.options;
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].value === time) {
-                    options[i].disabled = true;
-                    options[i].style.color = 'gray';
-                    break;
-                }
-            }
-        }
-
-        function resetOrder() {
-            selectedPizzas = {};
-            summaryContent.innerHTML = '';
-            orderSummary.classList.add('hidden');
-            pickupDeliverySelection.classList.add('hidden');
-            pizzaSelect.selectedIndex = 0;
-            timeSelect.selectedIndex = 0;
-            timeSelect.parentElement.classList.remove('hidden');
-        }
-
-        document.getElementById('pickup-btn').addEventListener('click', function () {
-            pickupForm.classList.remove('hidden');
-            document.getElementById('menu').classList.add('hidden');
-            pickupDeliverySelection.classList.add('hidden');
-        });
-
-        document.getElementById('submit-delivery-btn').addEventListener('click', function () {
-            const deliveryData = {
-                time: timeSelect.value,
-                pizzas: Object.entries(selectedPizzas).map(([pizza, quantity]) => `${pizza} x ${quantity}`).join(', '),
-                type: 'Lieferung',
-                firstName: document.getElementById('first-name').value.trim(),
-                lastName: document.getElementById('last-name').value.trim(),
-                address: document.getElementById('address').value.trim(),
-                phone: document.getElementById('phone').value.trim()
-            };
-
-            if (!deliveryData.firstName || !deliveryData.lastName || !deliveryData.address || !deliveryData.phone) {
-                alert("Bitte füllen Sie alle erforderlichen Felder aus.");
-                return;
-            }
-
-            sendOrderData(deliveryData);
-        });
-
-        document.getElementById('submit-pickup-btn').addEventListener('click', function () {
-            const pickupData = {
-                time: timeSelect.value,
-                pizzas: Object.entries(selectedPizzas).map(([pizza, quantity]) => `${pizza} x ${quantity}`).join(', '),
-                type: 'Abholung',
-                lastName: document.getElementById('pickup-last-name').value.trim(),
-                phone: document.getElementById('pickup-phone').value.trim()
-            };
-
-            if (!pickupData.lastName || !pickupData.phone) {
-                alert("Bitte füllen Sie alle erforderlichen Felder aus.");
-                return;
-            }
-
-            sendOrderData(pickupData);
-        });
-
-        const galleryBtn = document.getElementById('gallery-btn');
-        const galleryContainer = document.getElementById('gallery-container');
-        const galleryImage = document.getElementById('gallery-image');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const returnToOrderBtn = document.getElementById('return-to-order');
-
-        galleryBtn.addEventListener('click', function() {
-            galleryContainer.style.display = 'flex';
-            updateGalleryImage();
-        });
-
-        returnToOrderBtn.addEventListener('click', function() {
-            galleryContainer.style.display = 'none';
-        });
-
-        prevBtn.addEventListener('click', function() {
-            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-            updateGalleryImage();
-        });
-
-        nextBtn.addEventListener('click', function() {
-            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-            updateGalleryImage();
-        });
-
-        function updateGalleryImage() {
-            galleryImage.src = galleryImages[currentImageIndex];
-        }
-
-        document.getElementById('gallery-pdf-btn').addEventListener('click', function() {
-            window.open(' https://drive.google.com/file/d/1QRptMrYGV8bKcG_yezF58UAsMIGPKkgq/view?usp=sharing ', '_blank');
-        });
-
-        const resetReservedTimes = () => {
-            const now = new Date();
-            const nextMidnight = new Date();
-            nextMidnight.setHours(24, 0, 0, 0);
-
-            const timeUntilMidnight = nextMidnight - now;
-            setTimeout(() => {
-                localStorage.removeItem('reservedTimes');
-                location.reload();
-            }, timeUntilMidnight);
-        };
-
-        resetReservedTimes();
     </script>
 
-</body>
-</html>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
