@@ -83,6 +83,7 @@
             <option value="test4">Test 4</option>
             <option value="test5">Test 5</option>
 	    <option value="test6">Test 6</option>
+	    <option value="test7">Test 7</option>
         </select>
 
         <div class="card" id="card">
@@ -566,7 +567,112 @@ test6:  [
   "answer": "Einführung einer permanenten Qualitätssicherung, wiederkehrende Kundenbefragung zur Qualität der Produkte, Produktionsprozesse kontinuierlich verbessern, qualitative Materialien bei der Produktion benutzen, Mitarbeiterschulungen zum Thema Produktqualität."
 }
 
+],
+	test7:   
+		[
+  {
+    "question": "151. Welche Aufgaben hat ein DHCP-Server innerhalb der IT-Infrastruktur?",
+    "answer": "DHCP ist ein Kommunikationsprotokoll, welches Netzwerkgeräten ermöglicht, ohne manuelle Konfiguration eine automatische Netzwerkkonfiguration für das lokale Netz zu erhalten, wie z.B. IP-Adresse, Netzwerkmaske, Gateway und DNS-Server."
+  },
+  {
+    "question": "152. Welche Aufgabe hat das Simple Network Management Protocol (kurz SNMP)?",
+    "answer": "SNMP ist ein Netzwerkprotokoll, das von der IETF entwickelt wurde, mit dem Ziel, Netzwerkelemente wie Router, Server, Switches, Drucker und Computer mithilfe einer zentralen Managementkonsole zu überwachen und zu steuern."
+  },
+  {
+    "question": "153. Nenne Vor- und Nachteile von Multimodefasern.",
+    "answer": "Vorteile: Geringerer Aufwand in der Herstellung der Glasfasern, einfachere Verbindungstechnik aufgrund des größeren Kerndurchmessers. Nachteile: Größere Signaldämpfung und Laufzeitverschiebung, geringe maximale Bandbreite, nur kürzere Distanzen überbrückbar, Verstärker bei größeren Distanzen notwendig."
+  },
+  {
+    "question": "154. Nenne Vor- und Nachteile von Singlemode-Glasfasern.",
+    "answer": "Vorteile: Geringe Dämpfung des Signals, kaum Laufzeitverschiebung, größere Distanzen überbrückbar, hohe Bandbreiten. Nachteile: Teure Laser zur Einspeisung des Lichts notwendig, größerer Aufwand bei der Herstellung der Glasfasern aufgrund kleiner Faserkerne, hohe Präzision bei Verbinden der Glasfasern durch Stecker notwendig."
+  },
+  {
+    "question": "155. Worin unterscheiden sich die Lichtwellenleiter der Singlemode- und Multimodefasern?",
+    "answer": "Der Unterschied besteht darin, dass Singlemode-Glasfaserkabel einen erheblich geringeren Faserkerndurchmesser als Multimode-Glasfaserkabel haben. Multimodefasern haben eine Übertragungsreichweite von bis zu 2.000 Metern, während Singlemodefasern bis zu 10.000 Meter erreichen können."
+  },
+  {
+    "question": "156. Was versteht man bei IPv6 unter Stateless Address Autoconfiguration?",
+    "answer": "SLAAC bei IPv6 ist das Äquivalent zu APIPA bei IPv4. Stateless, also zustandslos, bekommt jedes IPv6-Stack per Autokonfiguration eine link-lokale IPv6-Adresse zugewiesen, die immer mit FE80 beginnt."
+  },
+  {
+    "question": "157. Welche Aufgabe hat bei IPv4 eine Broadcast-Adresse?",
+    "answer": "Mit einer Broadcast-Adresse werden alle Netzwerkgeräte eines lokalen Netzwerks erreicht, ohne diese dediziert anzugeben. Broadcasts sind immer auf das eigene lokale Netzwerk beschränkt und werden nicht über Router weitergeleitet. Eine Broadcast-Adresse wird in jedem Netzwerk nur einmal vergeben und ist immer die letzte IP-Adresse des Subnetzes."
+  },
+  {
+    "question": "158. Wie wird eine Fibre-Channel-Verbindung adressiert?",
+    "answer": "Beim Fibre Channel hat jedes Gerät einen weltweit eindeutigen WWNN (World Wide Node Name) sowie jeder Port pro Gerät einen WWPN (World Wide Port Name). Dabei handelt es sich um einen 64-Bit-Wert in Hex, der jedes Fibre-Channel-Gerät eindeutig identifiziert. Der WWNN ist das Äquivalent zur MAC-Adresse, z.B. könnte eine Adresse so aussehen: 20:50:05:45:E4:67:A3:88."
+  },
+  {
+    "question": "159. Wie lautet die Notation einer iSCSI-Verbindung?",
+    "answer": "Eine iSCSI-Verbindung, die zwischen einem Target und einem Initiator hergestellt werden soll, benötigt jeweils einen iSCSI Qualified Name (IQN). Die IQN stellt somit, vergleichbar mit einer IP-Adresse für das Ethernet-Protokoll, die Adressierung dar. Ein Beispiel für eine IQN lautet: iqn.yyyy-mm.naming-authority:unique."
+  },
+  {
+    "question": "160. Was bedeutet in der Netzwerktechnologie der Begriff PoE?",
+    "answer": "Power over Ethernet (PoE) bezeichnet ein Verfahren, das durch IEEE-Standards definiert ist und es ermöglicht, Netzwerkgeräte über das Ethernet-Kabel des lokalen Netzwerks mit Strom zu versorgen. Typische Verbraucher für PoE sind: IP-Telefonie, IP-Kameras, Zeiterfassungsterminals."
+  },
+  {
+    "question": "161. Das Unternehmensnetzwerk (192.168.30.0/24) soll zukünftig in 8 Subnetze unterteilt werden. Wie lautet die korrekte Subnetzmaske und wie viele Host-IP-Adressen kann ich insgesamt in allen 8 Subnetzen nutzen?",
+    "answer": "8 Subnetze = 2³....Subnetzmaske: 255.255.255.224 oder /27....Host-IP-Adressen: 240 (8 x 32 (minus Netz-ID und Broadcast-Adresse) = 8 x 30 = 240)."
+  },
+  {
+    "question": "162. Was ist ein Storage Area Network, kurz SAN?",
+    "answer": "Ein Storage Area Network bzw. Speichernetzwerk ist die Bezeichnung für ein Netzwerk mit Anbindung an ein Festplattensubsystem, sogenannte Disk Arrays, an einem Server. Mit einem SAN werden serielle, kontinuierliche Hochgeschwindigkeitsübertragungen großer Datenmengen ermöglicht. Die Festplattensubsysteme stellen über verschiedene RAID-Level wie RAID 1, 6, 10, 50 und 60 Datenredundanz her."
+  },
+  {
+    "question": "163. Was ist ein Network Attached Storage, kurz NAS?",
+    "answer": "NAS, englisch für 'netzgebundener Speicher', wird auf einem einfach zu verwaltenden Dateiserver genutzt, der über ein eigenes Dateisystem und eine Managementoberfläche verfügt. NAS wird sowohl zuhause als auch in Unternehmen verwendet, um unabhängige Speicherkapazitäten in einem lokalen Netzwerk bereitzustellen."
+  },
+  {
+    "question": "164. Was ist eine Broadcast-Domäne?",
+    "answer": "Der Begriff Broadcast-Domäne wird für ein Netzwerk von Geräten verwendet, die sich auf Schicht 2 des OSI-Modells befinden. In einer Broadcast-Domäne gibt es mehrere Kollisionsdomänen. Eine Broadcast-Domäne ist über Hubs, Switches oder Bridges miteinander verbunden und erreicht mithilfe einer Ethernet-Broadcast-Adresse alle anderen Domänenteilnehmer. Um Broadcasts zu unterteilen, kommen Subnetze oder Router zum Einsatz, die auf Schicht 3 des OSI-Modells arbeiten."
+  },
+  {
+    "question": "165. Welche Vorteile ergeben sich durch den Einsatz eines Virtual Local Area Networks (VLAN)?",
+    "answer": "Priorisierung des Datenverkehrs, bessere Lastverteilung, flexiblere Anpassung von Gruppenzugehörigkeiten, Trennung des Datenverkehrs nach spezifischen Anwendungen."
+  },
+  {
+    "question": "166. Welche Sicherheitsmethoden und Verschlüsselungsstandards können bei WLANs zum Einsatz kommen?",
+    "answer": "Sicherheitsmethoden: WPA (unsicher), WPA2-Personal, WPA3-Personal....Verschlüsselungsstandards: Advanced Encryption Standard (AES), Temporal Key Integrity Protocol (TKIP), SAE."
+  },
+  {
+    "question": "167. Welche Merkmale hat ein Virtual Private Network (VPN)?",
+    "answer": "Ein VPN ist ein logisches Netzwerk, das eine geschützte Netzwerkverbindung unter Nutzung öffentlicher Netzwerke herstellt. Mit Verschlüsselungstechnologien soll über VPN die Authentizität, Vertraulichkeit und Integrität der Daten sichergestellt werden. VPN verwendet End-to-Site-, Site-to-Site- und End-to-End-Verschlüsselungstechnologien."
+  },
+  {
+    "question": "168. Welche 3 VPN-Verbindungsarten gibt es?",
+    "answer": "End-to-Site, Site-to-Site, End-to-End."
+  },
+  {
+    "question": "169. Beschreibe das Modell Pay per Use in der Informationstechnologie.",
+    "answer": "Pay per Use ist ein Finanzierungsmodell für die Nutzung von Hard- und Software. Dabei bezahlt man nur für die tatsächliche Nutzung von Hard- oder Software. Bei diesem Modell hat der Nutzer keine Anschaffungskosten, keine Kapitalbindung, keine Softwarepflege, keine Lizenzierungskosten und verwendet immer die aktuelle Version. Die Nutzung der Ressourcen wird auf Basis der Nutzungsdauer, in Stunden oder Minuten, abgerechnet."
+  },
+  {
+    "question": "170. Mit welchen Maßnahmen kann eine drahtlose Netzwerkverbindung (WLAN/WIFI) abgesichert werden?",
+    "answer": "Einsatz von WPA2/3, Einsatz von RADIUS-Servern, Einsatz von Client-Zertifikaten, Nutzung von VPN-Verbindungen."
+  },
+  {
+    "question": "171. Was beschreibt eine EULA (End User License Agreement) während des Installationsprozesses von Software?",
+    "answer": "EULA steht für Endbenutzer-Lizenzvereinbarung. Sie enthält Regelungen, die bei der allgemeinen Benutzung einer Software eingehalten werden sollen. Die EULA wird zu Beginn des Installationsprozesses angezeigt und ihr muss zugestimmt werden, andernfalls kann der Installationsprozess nicht weitergeführt werden."
+  },
+  {
+    "question": "172. Was versteht man im Rechenzentrumsumfeld unter Lastverteilung?",
+    "answer": "Im Rechenzentrum kann die Lastverteilung durch Load Balancer realisiert werden. Diese sollen große, eingehende Lasten gleichmäßig auf die im Pool vorhandenen Server verteilen."
+  },
+  {
+    "question": "173. Was ist das Verfahren ‚Password-Hashing‘?",
+    "answer": "Das Verfahren beschreibt die Art und Weise, wie ein Passwort durch Algorithmen irreversibel verschlüsselt wird. Dabei entstehen Hashes, die im Klartext nicht lesbar sind. Password-Hashing-Methoden sind: PBKDF2, Argon2, bcrypt, scrypt, SHA-256."
+  },
+  {
+    "question": "174. Was ist der Unterschied zwischen Webserver und Application Server?",
+    "answer": "Ein Webserver verarbeitet keine Programmlogik, sondern stellt vor allem statische Inhalte wie HTML-, CSS-, Bilddateien und JavaScript-Dateien bereit, während ein Application Server auf Basis einer Middleware die Anwendungslogik wie Datenbankzugriffe, Benutzerverwaltung etc. ausführt."
+  },
+  {
+    "question": "175. Nenne verschiedene Storage-Topologien.",
+    "answer": "Server-attached storage, Direct-attached storage, Network-attached storage, Storage area network, Unified storage, Clustered storage."
+  }
 ]
+
+	
  };
 
         let currentTest = [];
