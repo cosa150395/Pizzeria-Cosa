@@ -114,6 +114,12 @@
         button:active {
             background-color: green;
         }
+        .answers-container li.disabled {
+            pointer-events: none; /* Verhindert Klicks */
+            opacity: 0.6; /* Sichtbarkeit reduzieren */
+        }
+
+
 
         .footer {
             position: absolute;
@@ -128,6 +134,7 @@
 <body>
     <div class="container">
         <div class="timer" id="timer">Zeit: 90:00</div>
+        <div id="feedback" style="text-align: center; font-weight: bold; margin-top: 10px; color: darkred;"></div>
 
         <div class="test-selection">
             <label for="testSelector">Odaberite test:</label>
@@ -141,15 +148,15 @@
                 <option value="Subnetting">Subnetting</option>
                 <option value="OSI">OSI</option>
                 <option value="Datenubertragung">Datenubertragung</option>
-                
+
             </select>
         </div>
-	<div class="question-container">
-    <img id="questionImage" class="hidden" alt="" />
-    <p id="questionText"></p>
-	</div>
+        <div class="question-container">
+            <img id="questionImage" class="hidden" alt="" />
+            <p id="questionText"></p>
+        </div>
 
-       
+
 
         <ul class="answers-container" id="answersList">
         </ul>
@@ -160,9 +167,19 @@
     </div>
 
     <script>
-                
+        const password = "1234"; // Hier das gewünschte Passwort einfügen
 
-const tests = {
+        function checkPassword() {
+            const enteredPassword = prompt("Bitte geben Sie das Passwort ein:");
+            if (enteredPassword !== password) {
+                alert("Falsches Passwort!");
+                window.location.reload(); // Lädt die Seite neu
+            }
+        }
+
+        // Passwortprüfung wird direkt beim Laden der Seite aufgerufen
+        window.onload = checkPassword; 
+        const tests = {
             Test1: [
                 {
                     "text": "1. Welche technischen Merkmale hat ein Notebook?",
@@ -3412,14 +3429,7 @@ const tests = {
             const seconds = remainingTimeInSeconds % 60;
             timerElement.textContent = `Zeit: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
-        function checkPassword() {
-            const enteredPassword = prompt("Bitte geben Sie das Passwort ein:");
-            if (enteredPassword !== password) {
-                alert("Falsches Passwort!");
-                window.location.reload();
-            }
-        }
-
+      
 
         function showQuestion() {
             const selectedTest = document.getElementById("testSelector").value;
@@ -3445,29 +3455,65 @@ const tests = {
             }
         }
 
+        let answerChecked = false; // Status, ob die aktuelle Antwort überprüft wurde
+
         function checkAnswer() {
             const selectedAnswer = document.querySelector('.answers-container li.selected');
+            const feedbackElement = document.getElementById("feedback");
 
-            if (selectedAnswer) {
-                const selectedTest = document.getElementById("testSelector").value;
-                const question = tests[selectedTest][currentQuestionIndex];
-                if (selectedAnswer.textContent === question.correctAnswer) {
-                    correctAnswers++;
+            if (!answerChecked) {
+                // Antwort prüfen
+                if (selectedAnswer) {
+                    const selectedTest = document.getElementById("testSelector").value;
+                    const question = tests[selectedTest][currentQuestionIndex];
+
+                    if (selectedAnswer.textContent === question.correctAnswer) {
+                        correctAnswers++;
+                        feedbackElement.textContent = "Antwort richtig!";
+                        feedbackElement.className = "correct";
+                    } else {
+                        incorrectAnswers++;
+                        feedbackElement.textContent = `Antwort falsch! Die richtige Antwort ist: "${question.correctAnswer}"`;
+                        feedbackElement.className = "incorrect";
+                    }
+
+                    // Antwort überprüft: Disable Auswahl
+                    document.querySelectorAll('.answers-container li').forEach(li => {
+                        li.classList.add('disabled');
+                    });
+
+                    answerChecked = true; // Markieren, dass die Antwort geprüft wurde
+                    document.getElementById("nextButton").textContent = "NÄCHSTE FRAGE"; // Button anpassen
                 } else {
-                    incorrectAnswers++;
+                    alert("BITTE WÄHLE EINE ANTWORT AUS.");
                 }
+            } else {
+                // Zur nächsten Frage wechseln
+                const feedbackElement = document.getElementById("feedback");
+
+                feedbackElement.textContent = ""; // Feedback leeren
+                feedbackElement.className = ""; // Feedback-Klasse zurücksetzen
+
+                document.querySelectorAll('.answers-container li').forEach(li => {
+                    li.classList.remove('disabled', 'selected');
+                });
 
                 currentQuestionIndex++;
+
+                const selectedTest = document.getElementById("testSelector").value;
 
                 if (currentQuestionIndex < tests[selectedTest].length) {
                     showQuestion();
                 } else {
                     showResult();
                 }
-            } else {
-                   alert("BITTE WÄHLE EINE ANTWORT AUS.");         
-          }
+
+                answerChecked = false; // Zurücksetzen für die nächste Frage
+                document.getElementById("nextButton").textContent = "ÜBERPRÜFEN"; // Button zurücksetzen
+            }
         }
+
+
 
         function showResult() {
             document.getElementById("nextButton").classList.add("hidden");
