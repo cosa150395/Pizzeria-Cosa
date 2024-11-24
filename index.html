@@ -17,6 +17,24 @@
             background-color: #f4f4f9;
             color: #333;
         }
+        /* Standard-Stile für Desktops */
+        body {
+            font-size: 16px;
+        }
+
+        /* Stile für Tablets */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+        }
+
+        /* Stile für Handys */
+        @media (max-width: 480px) {
+            body {
+                font-size: 12px;
+            }
+        }
 
         .container {
             background-color: #ffffff;
@@ -27,6 +45,7 @@
             width: 100%;
             position: relative;
         }
+       
 
         .timer {
             font-size: 18px;
@@ -118,7 +137,10 @@
             pointer-events: none; /* Verhindert Klicks */
             opacity: 0.6; /* Sichtbarkeit reduzieren */
         }
-
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
 
         .footer {
@@ -139,15 +161,17 @@
         <div class="test-selection">
             <label for="testSelector">Odaberite test:</label>
             <select id="testSelector" onchange="loadTest()">
-                <option value="Test1">Test1</option>
-                <option value="Test2">Test2</option>
-                <option value="Test3">Test3</option>
-                <option value="Test4">Test4</option>
+                <option value="Lernkartentest1">Lernkartentest1</option>
+                <option value="Lernkartentest2">Lernkartentest2</option>
+                <option value="Lernkartentest3">Lernkartentest3</option>
+                <option value="Lernkartentest4">Lernkartentest4</option>
                 <option value="RAID">RAID</option>
                 <option value="IPAdressen">IPAdressen</option>
                 <option value="Subnetting">Subnetting</option>
                 <option value="OSI">OSI</option>
                 <option value="Datenubertragung">Datenubertragung</option>
+                <option value="Hexaumwandlung">Hexaumwandlung</option>
+                <option value="SQL">SQL</option>
 
             </select>
         </div>
@@ -180,7 +204,7 @@
         // Passwortprüfung wird direkt beim Laden der Seite aufgerufen
         window.onload = checkPassword; 
         const tests = {
-            Test1: [
+            Lernkartentest1: [
                 {
                     "text": "1. Welche technischen Merkmale hat ein Notebook?",
                     "answers": [
@@ -683,7 +707,7 @@
                 }
             ],
             // SOFTWARE
-            Test2: [
+            Lernkartentest2: [
                 {
                     "text": "1. In welchem Softwaresystem werden in der Regel Supportanfragen verarbeitet?",
                     "answers": [
@@ -1207,7 +1231,7 @@
                
             ],
             // PROJEKTMANAGMENT
-            Test3: [
+            Lernkartentest3: [
                 {
                     "text": "1. Welche sind die Hauptziele der Datensicherheit?",
                     "answers": [
@@ -1773,7 +1797,7 @@
       // NETZWERK
 
           
-            Test4: [
+            Lernkartentest4: [
                 {
                     "text": "1. Was sind die Bestandteile einer Risikoanalyse?",
                     "answers": [
@@ -2877,7 +2901,7 @@
 
             Subnetting: [
                 {
-                    "text": "1. Was ist Subnetting?",
+                    "text": "1. Was ist Subnetting?",                 
                     "answers": [
                         "Subnetting ist der Prozess der Aufteilung eines größeren Netzwerks in kleinere, logisch getrennte Subnetze.",
                         "Subnetting ist der Prozess der Zusammenführung mehrerer kleiner Netzwerke zu einem größeren Netzwerk.",
@@ -2937,7 +2961,7 @@
                     "correctAnswer": "255.255.0.0"
                 },
                 {
-                    "text": "7. Wie viele Hosts können in einem /16-Subnetz adressiert werden?",
+                    "text": "7. Wie viele Hosts können in einem /16-Subnetz adressiert werden?",                
                     "answers": [
                         "65.534 Hosts",
                         "65.536 Hosts",
@@ -3185,6 +3209,7 @@
             Datenubertragung: [
                 {
                     "text": "1. Wie lange dauert es, eine Datei von 2 GB über eine Verbindung mit 5 Mbps zu übertragen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "53 Minuten und 20 Sekunden",
                         "1 Stunde und 12 Minuten",
@@ -3195,6 +3220,7 @@
                 },
                 {
                     "text": "2. Wie viele Stunden dauert es, 10 TB an Daten über eine Verbindung mit 100 Mbps hochzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "22.22 Stunden",
                         "27.78 Stunden",
@@ -3205,6 +3231,7 @@
                 },
                 {
                     "text": "3. Wie viele Minuten dauert es, eine Datei von 750 MB über eine Verbindung mit 25 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "4 Minuten",
                         "5 Minuten",
@@ -3215,6 +3242,7 @@
                 },
                 {
                     "text": "4. Wie viele Sekunden benötigt ein Server, um 500 GB über eine Verbindung mit 1 Gbps zu übertragen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "4000 Sekunden",
                         "5000 Sekunden",
@@ -3225,6 +3253,7 @@
                 },
                 {
                     "text": "5. Wie lange dauert es, einen Film von 4.7 GB über eine Verbindung mit 50 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "12 Minuten und 32 Sekunden",
                         "15 Minuten",
@@ -3235,6 +3264,7 @@
                 },
                 {
                     "text": "6. Welche Übertragungsgeschwindigkeit in Mbps hat ein Netzwerk, wenn eine 100 MB Datei in 20 Sekunden übertragen wird?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "40 Mbps",
                         "50 Mbps",
@@ -3245,6 +3275,7 @@
                 },
                 {
                     "text": "7. Wie viele GB können in 3 Stunden über eine Verbindung mit 200 Mbps gesichert werden?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "270 GB",
                         "225 GB",
@@ -3255,6 +3286,7 @@
                 },
                 {
                     "text": "8. Wie lange dauert es, ein Software-Update von 1.5 GB über eine Verbindung mit 10 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "20 Minuten",
                         "25 Minuten",
@@ -3265,6 +3297,7 @@
                 },
                 {
                     "text": "9. Wie viele GB können in 24 Stunden über eine Verbindung mit 500 Mbps übertragen werden?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "5400 GB",
                         "4800 GB",
@@ -3275,6 +3308,7 @@
                 },
                 {
                     "text": "10. Wie viele Stunden Video können in 1 TB Daten übertragen werden, wenn die Übertragungsrate 8 Mbps beträgt?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "277.78 Stunden",
                         "250 Stunden",
@@ -3285,6 +3319,7 @@
                 },
                 {
                     "text": "11. Wie lange dauert es, eine Datei von 2 GiB über eine Verbindung mit 5 Mbps zu übertragen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "57 Minuten und 27 Sekunden",
                         "1 Stunde und 10 Minuten",
@@ -3295,6 +3330,7 @@
                 },
                 {
                     "text": "12. Wie viele Stunden dauert es, 10 TiB an Daten über eine Verbindung mit 100 Mbps hochzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "24.44 Stunden",
                         "28.44 Stunden",
@@ -3305,6 +3341,7 @@
                 },
                 {
                     "text": "13. Wie viele Minuten dauert es, eine Datei von 750 MiB über eine Verbindung mit 25 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "4 Minuten und 16 Sekunden",
                         "5 Minuten und 12 Sekunden",
@@ -3315,6 +3352,7 @@
                 },
                 {
                     "text": "14. Wie viele Sekunden benötigt ein Server, um 500 GiB über eine Verbindung mit 1 Gbps zu übertragen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "4194 Sekunden",
                         "5000 Sekunden",
@@ -3325,6 +3363,7 @@
                 },
                 {
                     "text": "15. Wie lange dauert es, einen Film von 4.7 GiB über eine Verbindung mit 50 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "12 Minuten und 34 Sekunden",
                         "15 Minuten und 30 Sekunden",
@@ -3335,6 +3374,7 @@
                 },
                 {
                     "text": "16. Welche Übertragungsgeschwindigkeit in Mbps hat ein Netzwerk, wenn eine 100 MiB Datei in 20 Sekunden übertragen wird?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "40 Mbps",
                         "50 Mbps",
@@ -3345,6 +3385,7 @@
                 },
                 {
                     "text": "17. Wie viele GiB können in 3 Stunden über eine Verbindung mit 200 Mbps gesichert werden?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "270 GiB",
                         "225 GiB",
@@ -3355,6 +3396,7 @@
                 },
                 {
                     "text": "18. Wie lange dauert es, ein Software-Update von 1.5 GiB über eine Verbindung mit 10 Mbps herunterzuladen?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "20 Minuten und 29 Sekunden",
                         "25 Minuten und 15 Sekunden",
@@ -3365,6 +3407,7 @@
                 },
                 {
                     "text": "19. Wie viele GiB können in 24 Stunden über eine Verbindung mit 500 Mbps übertragen werden?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "5400 GiB",
                         "4800 GiB",
@@ -3375,6 +3418,7 @@
                 },
                 {
                     "text": "20. Wie viele Stunden Video können in 1 TiB Daten übertragen werden, wenn die Übertragungsrate 8 Mbps beträgt?",
+                    "imagePath": "https://i.imgur.com/9SrKo02.jpeg",
                     "answers": [
                         "284.44 Stunden",
                         "250 Stunden",
@@ -3382,6 +3426,434 @@
                         "200 Stunden"
                     ],
                     "correctAnswer": "284.44 Stunden"
+                }
+            ],
+            Hexaumwandlung: [
+                
+                    {
+                        "text": "1. Konvertieren Sie die Hexadezimalzahl 1A3F in eine Dezimalzahl.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "1A3F (Hex) = 6719 (Dezimal).",
+                            "1A3F (Hex) = 6720 (Dezimal).",
+                            "1A3F (Hex) = 6718 (Dezimal).",
+                            "1A3F (Hex) = 6700 (Dezimal)."
+                        ],
+                        "correctAnswer": "1A3F (Hex) = 6719 (Dezimal)."
+                    },
+                    {
+                        "text": "2. Wandeln Sie die Dezimalzahl 255 in eine Hexadezimalzahl um.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "255 (Dezimal) = FF (Hex).",
+                            "255 (Dezimal) = FE (Hex).",
+                            "255 (Dezimal) = F0 (Hex).",
+                            "255 (Dezimal) = F1 (Hex)."
+                        ],
+                        "correctAnswer": "255 (Dezimal) = FF (Hex)."
+                    },
+                    {
+                        "text": "3. Konvertieren Sie die Binärzahl 101011 in eine Dezimalzahl.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "101011 (Binär) = 43 (Dezimal).",
+                            "101011 (Binär) = 42 (Dezimal).",
+                            "101011 (Binär) = 44 (Dezimal).",
+                            "101011 (Binär) = 45 (Dezimal)."
+                        ],
+                        "correctAnswer": "101011 (Binär) = 43 (Dezimal)."
+                    },
+                    {
+                        "text": "4. Wandeln Sie die Oktalzahl 57 in eine Dezimalzahl um.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "57 (Oktal) = 47 (Dezimal).",
+                            "57 (Oktal) = 46 (Dezimal).",
+                            "57 (Oktal) = 48 (Dezimal).",
+                            "57 (Oktal) = 45 (Dezimal)."
+                        ],
+                        "correctAnswer": "57 (Oktal) = 47 (Dezimal)."
+                    },
+                    {
+                        "text": "5. Konvertieren Sie die Dezimalzahl 1024 in eine Binärzahl.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "1024 (Dezimal) = 10000000000 (Binär).",
+                            "1024 (Dezimal) = 1000000000 (Binär).",
+                            "1024 (Dezimal) = 11000000000 (Binär).",
+                            "1024 (Dezimal) = 1111111111 (Binär)."
+                        ],
+                        "correctAnswer": "1024 (Dezimal) = 10000000000 (Binär)."
+                    },
+                    {
+                        "text": "6. Wandeln Sie die Hexadezimalzahl F1A in eine Oktalzahl um.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "F1A (Hex) = 17432 (Oktal).",
+                            "F1A (Hex) = 17433 (Oktal).",
+                            "F1A (Hex) = 17430 (Oktal).",
+                            "F1A (Hex) = 17431 (Oktal)."
+                        ],
+                        "correctAnswer": "F1A (Hex) = 17432 (Oktal)."
+                    },
+                    {
+                        "text": "7. Konvertieren Sie die Oktalzahl 731 in eine Hexadezimalzahl.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "731 (Oktal) = 1E9 (Hex).",
+                            "731 (Oktal) = 1E8 (Hex).",
+                            "731 (Oktal) = 1EA (Hex).",
+                            "731 (Oktal) = 1E7 (Hex)."
+                        ],
+                        "correctAnswer": "731 (Oktal) = 1E9 (Hex)."
+                    },
+                    {
+                        "text": "8. Wandeln Sie die Binärzahl 11010110 in eine Oktalzahl um.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "11010110 (Binär) = 326 (Oktal).",
+                            "11010110 (Binär) = 327 (Oktal).",
+                            "11010110 (Binär) = 325 (Oktal).",
+                            "11010110 (Binär) = 324 (Oktal)."
+                        ],
+                        "correctAnswer": "11010110 (Binär) = 326 (Oktal)."
+                    },
+                    {
+                        "text": "9. Konvertieren Sie die Dezimalzahl 512 in eine Hexadezimalzahl.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "512 (Dezimal) = 200 (Hex).",
+                            "512 (Dezimal) = 201 (Hex).",
+                            "512 (Dezimal) = 202 (Hex).",
+                            "512 (Dezimal) = 203 (Hex)."
+                        ],
+                        "correctAnswer": "512 (Dezimal) = 200 (Hex)."
+                    },
+                    {
+                        "text": "10. Wandeln Sie die Hexadezimalzahl 3B9 in eine Dezimalzahl um.",
+                        "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                        "answers": [
+                            "3B9 (Hex) = 953 (Dezimal).",
+                            "3B9 (Hex) = 952 (Dezimal).",
+                            "3B9 (Hex) = 954 (Dezimal).",
+                            "3B9 (Hex) = 951 (Dezimal)."
+                        ],
+                        "correctAnswer": "3B9 (Hex) = 953 (Dezimal)."
+                    },
+                {
+                    "text": "11. Konvertieren Sie die Dezimalzahl 99 in eine Binärzahl.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "99 (Dezimal) = 1100110 (Binär).",
+                        "99 (Dezimal) = 1100011 (Binär).",
+                        "99 (Dezimal) = 1011011 (Binär).",
+                        "99 (Dezimal) = 1011111 (Binär)."
+                    ],
+                    "correctAnswer": "99 (Dezimal) = 1100011 (Binär)."
+                },
+                {
+                    "text": "12. Wandeln Sie die Oktalzahl 644 in eine Dezimalzahl um.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "644 (Oktal) = 420 (Dezimal).",
+                        "644 (Oktal) = 400 (Dezimal).",
+                        "644 (Oktal) = 424 (Dezimal).",
+                        "644 (Oktal) = 412 (Dezimal)."
+                    ],
+                    "correctAnswer": "644 (Oktal) = 420 (Dezimal)."
+                },
+                {
+                    "text": "13. Konvertieren Sie die Hexadezimalzahl ABC in eine Binärzahl.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "ABC (Hex) = 101011111110 (Binär).",
+                        "ABC (Hex) = 101011111100 (Binär).",
+                        "ABC (Hex) = 101110111100 (Binär).",
+                        "ABC (Hex) = 101110111110 (Binär)."
+                    ],
+                    "correctAnswer": "ABC (Hex) = 101010111100 (Binär)."
+                },
+                {
+                    "text": "14. Wandeln Sie die Dezimalzahl 88 in eine Oktalzahl um.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "88 (Dezimal) = 120 (Oktal).",
+                        "88 (Dezimal) = 100 (Oktal).",
+                        "88 (Dezimal) = 130 (Oktal).",
+                        "88 (Dezimal) = 110 (Oktal)."
+                    ],
+                    "correctAnswer": "88 (Dezimal) = 130 (Oktal)."
+                },
+                {
+                    "text": "15. Konvertieren Sie die Binärzahl 1001111 in eine Dezimalzahl.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "1001111 (Binär) = 77 (Dezimal).",
+                        "1001111 (Binär) = 78 (Dezimal).",
+                        "1001111 (Binär) = 79 (Dezimal).",
+                        "1001111 (Binär) = 76 (Dezimal)."
+                    ],
+                    "correctAnswer": "1001111 (Binär) = 79 (Dezimal)."
+                },
+                {
+                    "text": "16. Wandeln Sie die Oktalzahl 177 in eine Hexadezimalzahl um.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "177 (Oktal) = 7F (Hex).",
+                        "177 (Oktal) = 7D (Hex).",
+                        "177 (Oktal) = 7C (Hex).",
+                        "177 (Oktal) = 7E (Hex)."
+                    ],
+                    "correctAnswer": "177 (Oktal) = 7F (Hex)."
+                },
+                {
+                    "text": "17. Konvertieren Sie die Hexadezimalzahl 2A3 in eine Oktalzahl.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "2A3 (Hex) = 5242 (Oktal).",
+                        "2A3 (Hex) = 5244 (Oktal).",
+                        "2A3 (Hex) = 5243 (Oktal).",
+                        "2A3 (Hex) = 5241 (Oktal)."
+                    ],
+                    "correctAnswer": "2A3 (Hex) = 5243 (Oktal)."
+                },
+                {
+                    "text": "18. Wandeln Sie die Dezimalzahl 350 in eine Hexadezimalzahl um.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "350 (Dezimal) = 15E (Hex).",
+                        "350 (Dezimal) = 15F (Hex).",
+                        "350 (Dezimal) = 14E (Hex).",
+                        "350 (Dezimal) = 14F (Hex)."
+                    ],
+                    "correctAnswer": "350 (Dezimal) = 15E (Hex)."
+                },
+                {
+                    "text": "19. Konvertieren Sie die Oktalzahl 27 in eine Binärzahl.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "27 (Oktal) = 10011 (Binär).",
+                        "27 (Oktal) = 10111 (Binär).",
+                        "27 (Oktal) = 11011 (Binär).",
+                        "27 (Oktal) = 11111 (Binär)."
+                    ],
+                    "correctAnswer": "27 (Oktal) = 10111 (Binär)."
+                },
+                {
+                    "text": "20. Wandeln Sie die Hexadezimalzahl 1C4 in eine Dezimalzahl um.",
+                    "imagePath": "https://i.imgur.com/MH8cWNt.jpeg",
+                    "answers": [
+                        "1C4 (Hex) = 450 (Dezimal).",
+                        "1C4 (Hex) = 451 (Dezimal).",
+                        "1C4 (Hex) = 452 (Dezimal).",
+                        "1C4 (Hex) = 453 (Dezimal)."
+                    ],
+                    "correctAnswer": "1C4 (Hex) = 452 (Dezimal)."
+                }
+      
+
+            ],
+
+            SQL: [
+                {
+                    "text": "1. Wählen Sie alle Daten aus der Tabelle 'Kunden' aus.",
+                    "answers": [
+                        "SELECT * FROM Kunden;",
+                        "SELECT ALL FROM Kunden;",
+                        "SELECT Kunden FROM *;",
+                        "SELECT * IN Kunden;"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden;"
+                },
+                {
+                    "text": "2. Fügen Sie einen neuen Kunden mit den Daten (Name: 'Max Mustermann', Alter: 30) in die Tabelle 'Kunden' ein.",
+                    "answers": [
+                        "INSERT INTO Kunden (Name, Alter) VALUES ('Max Mustermann', 30);",
+                        "ADD INTO Kunden (Name, Alter) VALUES ('Max Mustermann', 30);",
+                        "INSERT Kunden (Name, Alter) VALUES ('Max Mustermann', 30);",
+                        "INSERT INTO Kunden (Name, Alter) VALUES ('Max Mustermann', '30');"
+                    ],
+                    "correctAnswer": "INSERT INTO Kunden (Name, Alter) VALUES ('Max Mustermann', 30);"
+                },
+                {
+                    "text": "3. Aktualisieren Sie das Alter des Kunden 'Max Mustermann' auf 31 in der Tabelle 'Kunden'.",
+                    "answers": [
+                        "UPDATE Kunden SET Alter = 31 WHERE Name = 'Max Mustermann';",
+                        "MODIFY Kunden SET Alter = 31 WHERE Name = 'Max Mustermann';",
+                        "CHANGE Kunden SET Alter = 31 WHERE Name = 'Max Mustermann';",
+                        "UPDATE Kunden SET Alter = '31' WHERE Name = 'Max Mustermann';"
+                    ],
+                    "correctAnswer": "UPDATE Kunden SET Alter = 31 WHERE Name = 'Max Mustermann';"
+                },
+                {
+                    "text": "4. Löschen Sie den Kunden 'Max Mustermann' aus der Tabelle 'Kunden'.",
+                    "answers": [
+                        "DELETE FROM Kunden WHERE Name = 'Max Mustermann';",
+                        "REMOVE FROM Kunden WHERE Name = 'Max Mustermann';",
+                        "DELETE Kunden WHERE Name = 'Max Mustermann';",
+                        "DELETE FROM Kunden WHERE Name IS 'Max Mustermann';"
+                    ],
+                    "correctAnswer": "DELETE FROM Kunden WHERE Name = 'Max Mustermann';"
+                },
+                {
+                    "text": "5. Wählen Sie alle Kunden aus, die älter als 25 Jahre sind.",
+                    "answers": [
+                        "SELECT * FROM Kunden WHERE Alter > 25;",
+                        "SELECT * FROM Kunden WHERE Alter >= 25;",
+                        "SELECT * FROM Kunden WHERE Alter < 25;",
+                        "SELECT * FROM Kunden WHERE Alter = 25;"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden WHERE Alter > 25;"
+                },
+                {
+                    "text": "6. Zählen Sie die Anzahl der Kunden in der Tabelle 'Kunden'.",
+                    "answers": [
+                        "SELECT COUNT(*) FROM Kunden;",
+                        "SELECT COUNT(Kunden) FROM Kunden;",
+                        "SELECT COUNT(*) IN Kunden;",
+                        "SELECT COUNT(*) FROM Kunden WHERE Name IS NOT NULL;"
+                    ],
+                    "correctAnswer": "SELECT COUNT(*) FROM Kunden;"
+                },
+                {
+                    "text": "7. Wählen Sie die Namen aller Kunden aus der Tabelle 'Kunden' aus.",
+                    "answers": [
+                        "SELECT Name FROM Kunden;",
+                        "SELECT Namen FROM Kunden;",
+                        "SELECT * FROM Kunden;",
+                        "SELECT Name IN Kunden;"
+                    ],
+                    "correctAnswer": "SELECT Name FROM Kunden;"
+                },
+                {
+                    "text": "8. Fügen Sie eine neue Spalte 'Email' zur Tabelle 'Kunden' hinzu.",
+                    "answers": [
+                        "ALTER TABLE Kunden ADD Email VARCHAR(255);",
+                        "MODIFY TABLE Kunden ADD Email VARCHAR(255);",
+                        "ALTER Kunden ADD Email VARCHAR(255);",
+                        "ADD COLUMN Email TO Kunden;"
+                    ],
+                    "correctAnswer": "ALTER TABLE Kunden ADD Email VARCHAR(255);"
+                },
+                {
+                    "text": "9. Ändern Sie den Datentyp der Spalte 'Alter' in der Tabelle 'Kunden' zu VARCHAR(3).",
+                    "answers": [
+                        "ALTER TABLE Kunden MODIFY Alter VARCHAR(3);",
+                        "ALTER TABLE Kunden CHANGE Alter VARCHAR(3);",
+                        "MODIFY TABLE Kunden ALTER Alter VARCHAR(3);",
+                        "CHANGE TABLE Kunden ALTER Alter VARCHAR(3);"
+                    ],
+                    "correctAnswer": "ALTER TABLE Kunden MODIFY Alter VARCHAR(3);"
+                },
+                {
+                    "text": "10. Erstellen Sie eine neue Tabelle 'Bestellungen' mit den Spalten 'BestellID' (INT) und 'KundeID' (INT).",
+                    "answers": [
+                        "CREATE TABLE Bestellungen (BestellID INT, KundeID INT);",
+                        "CREATE Bestellungen (BestellID INT, KundeID INT);",
+                        "CREATE TABLE Bestellungen (BestellID INTEGER, KundeID INTEGER);",
+                        "CREATE TABLE Bestellungen (BestellID INT, KundeID INTEGER);"
+                    ],
+                    "correctAnswer": "CREATE TABLE Bestellungen (BestellID INT, KundeID INT);"
+                },
+                {
+                    "text": "11. Wählen Sie die ersten 5 Einträge aus der Tabelle 'Kunden' aus.",
+                    "answers": [
+                        "SELECT * FROM Kunden LIMIT 5;",
+                        "SELECT TOP 5 * FROM Kunden;",
+                        "SELECT FIRST 5 * FROM Kunden;",
+                        "SELECT * FROM Kunden FIRST 5;"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden LIMIT 5;"
+                },
+                {
+                    "text": "12. Wählen Sie alle Kunden aus, deren Name mit 'M' beginnt.",
+                    "answers": [
+                        "SELECT * FROM Kunden WHERE Name LIKE 'M%';",
+                        "SELECT * FROM Kunden WHERE Name LIKE '%M';",
+                        "SELECT * FROM Kunden WHERE Name LIKE 'M';",
+                        "SELECT * FROM Kunden WHERE Name LIKE '%M%';"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden WHERE Name LIKE 'M%';"
+                },
+                {
+                    "text": "13. Wählen Sie alle eindeutigen Alterswerte aus der Tabelle 'Kunden' aus.",
+                    "answers": [
+                        "SELECT DISTINCT Alter FROM Kunden;",
+                        "SELECT UNIQUE Alter FROM Kunden;",
+                        "SELECT DIFFERENT Alter FROM Kunden;",
+                        "SELECT DISTINCT * FROM Kunden;"
+                    ],
+                    "correctAnswer": "SELECT DISTINCT Alter FROM Kunden;"
+                },
+                {
+                    "text": "14. Berechnen Sie das Durchschnittsalter der Kunden in der Tabelle 'Kunden'.",
+                    "answers": [
+                        "SELECT AVG(Alter) FROM Kunden;",
+                        "SELECT MEAN(Alter) FROM Kunden;",
+                        "SELECT AVERAGE(Alter) FROM Kunden;",
+                        "SELECT AVG(Alter) IN Kunden;"
+                    ],
+                    "correctAnswer": "SELECT AVG(Alter) FROM Kunden;"
+                },
+                {
+                    "text": "15. Wählen Sie alle Kunden aus, die entweder 25 oder 30 Jahre alt sind.",
+                    "answers": [
+                        "SELECT * FROM Kunden WHERE Alter IN (25, 30);",
+                        "SELECT * FROM Kunden WHERE Alter = 25 OR 30;",
+                        "SELECT * FROM Kunden WHERE Alter = 25 AND 30;",
+                        "SELECT * FROM Kunden WHERE Alter BETWEEN 25 AND 30;"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden WHERE Alter IN (25, 30);"
+                },
+                {
+                    "text": "16. Wählen Sie alle Kunden aus, die keinen Eintrag in der Spalte 'Email' haben.",
+                    "answers": [
+                        "SELECT * FROM Kunden WHERE Email IS NULL;",
+                        "SELECT * FROM Kunden WHERE Email = NULL;",
+                        "SELECT * FROM Kunden WHERE Email IS NOT;",
+                        "SELECT * FROM Kunden WHERE Email IS EMPTY;"
+                    ],
+                    "correctAnswer": "SELECT * FROM Kunden WHERE Email IS NULL;"
+                },
+                {
+                    "text": "17. Erstellen Sie eine neue Tabelle 'Produkte' mit den Spalten 'ProduktID' (INT) und 'Produktname' (VARCHAR(255)).",
+                    "answers": [
+                        "CREATE TABLE Produkte (ProduktID INT, Produktname VARCHAR(255));",
+                        "CREATE Produkte (ProduktID INT, Produktname VARCHAR(255));",
+                        "CREATE TABLE Produkte (ProduktID INTEGER, Produktname VARCHAR(255));",
+                        "CREATE TABLE Produkte (ProduktID INT, Produktname STRING);"
+                    ],
+                    "correctAnswer": "CREATE TABLE Produkte (ProduktID INT, Produktname VARCHAR(255));"
+                },
+                {
+                    "text": "18. Fügen Sie einen neuen Eintrag in die Tabelle 'Produkte' mit den Daten (ProduktID: 1, Produktname: 'Laptop') ein.",
+                    "answers": [
+                        "INSERT INTO Produkte (ProduktID, Produktname) VALUES (1, 'Laptop');",
+                        "ADD INTO Produkte (ProduktID, Produktname) VALUES (1, 'Laptop');",
+                        "INSERT Produkte (ProduktID, Produktname) VALUES (1, 'Laptop');",
+                        "INSERT INTO Produkte (ProduktID, Produktname) VALUES ('1', 'Laptop');"
+                    ],
+                    "correctAnswer": "INSERT INTO Produkte (ProduktID, Produktname) VALUES (1, 'Laptop');"
+                },
+                {
+                    "text": "19. Aktualisieren Sie den Produktnamen des Produkts mit der ProduktID 1 auf 'Notebook' in der Tabelle 'Produkte'.",
+                    "answers": [
+                        "UPDATE Produkte SET Produktname = 'Notebook' WHERE ProduktID = 1;",
+                        "MODIFY Produkte SET Produktname = 'Notebook' WHERE ProduktID = 1;",
+                        "CHANGE Produkte SET Produktname = 'Notebook' WHERE ProduktID = 1;",
+                        "UPDATE Produkte SET Produktname = 'Notebook' WHERE ProduktID = '1';"
+                    ],
+                    "correctAnswer": "UPDATE Produkte SET Produktname = 'Notebook' WHERE ProduktID = 1;"
+                },
+                {
+                    "text": "20. Löschen Sie das Produkt mit der ProduktID 1 aus der Tabelle 'Produkte'.",
+                    "answers": [
+                        "DELETE FROM Produkte WHERE ProduktID = 1;",
+                        "REMOVE FROM Produkte WHERE ProduktID = 1;",
+                        "DELETE Produkte WHERE ProduktID = 1;",
+                        "DELETE FROM Produkte WHERE ProduktID IS 1;"
+                    ],
+                    "correctAnswer": "DELETE FROM Produkte WHERE ProduktID = 1;"
                 }
             ],
 
@@ -3434,28 +3906,46 @@
         function showQuestion() {
             const selectedTest = document.getElementById("testSelector").value;
             const question = tests[selectedTest][currentQuestionIndex];
+
+            // Setze die Frage
             questionTextElement.textContent = question.text;
 
+            // Antworten zurücksetzen und neu hinzufügen
             answersListElement.innerHTML = '';
             question.answers.forEach(answer => {
                 const li = document.createElement("li");
                 li.textContent = answer;
                 li.onclick = () => {
+                    // Entferne 'selected'-Klasse von allen Antworten
                     document.querySelectorAll('.answers-container li').forEach(el => el.classList.remove('selected'));
+                    // Setze 'selected'-Klasse für die angeklickte Antwort
                     li.classList.add('selected');
                 };
                 answersListElement.appendChild(li);
             });
 
+            // Bild dynamisch aktualisieren
             if (question.imagePath) {
+                // Bildquelle setzen
                 questionImageElement.src = question.imagePath;
+
+                // Größe des Bildes setzen
+                questionImageElement.style.width = "600px"; // Breite
+                questionImageElement.style.height = "auto"; // Höhe beibehalten
+
+                // Bild sichtbar machen
                 questionImageElement.classList.remove("hidden");
             } else {
+                // Bildquelle leeren
+                questionImageElement.src = "";
+
+                // Bild ausblenden
                 questionImageElement.classList.add("hidden");
             }
         }
 
         let answerChecked = false; // Status, ob die aktuelle Antwort überprüft wurde
+
 
         function checkAnswer() {
             const selectedAnswer = document.querySelector('.answers-container li.selected');
